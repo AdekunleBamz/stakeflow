@@ -1,0 +1,52 @@
+---
+id: 0
+name: StakeFlow Mainnet Deployment
+network: mainnet
+stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: stakeflow-token-mainnet
+            expected-sender: SP1XXG40HM9Z3T92X8YX4CEXKKVRWNMY8PCGDEGYS
+            cost: 733899
+            path: contracts/stakeflow-token-mainnet.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: stakeflow-nft-mainnet
+            expected-sender: SP1XXG40HM9Z3T92X8YX4CEXKKVRWNMY8PCGDEGYS
+            cost: 734019
+            path: contracts/stakeflow-nft-mainnet.clar
+            anchor-block-only: true
+            clarity-version: 2
+    - id: 1
+      transactions:
+        - contract-publish:
+            contract-name: stakeflow-staking-mainnet
+            expected-sender: SP1XXG40HM9Z3T92X8YX4CEXKKVRWNMY8PCGDEGYS
+            cost: 734109
+            path: contracts/stakeflow-staking-mainnet.clar
+            anchor-block-only: true
+            clarity-version: 2
+    - id: 2
+      transactions:
+        - contract-publish:
+            contract-name: stakeflow-rewards-mainnet
+            expected-sender: SP1XXG40HM9Z3T92X8YX4CEXKKVRWNMY8PCGDEGYS
+            cost: 734104
+            path: contracts/stakeflow-rewards-mainnet.clar
+            anchor-block-only: true
+            clarity-version: 2
+    - id: 3
+      transactions:
+        - contract-publish:
+            contract-name: stakeflow-unstake-mainnet
+            expected-sender: SP1XXG40HM9Z3T92X8YX4CEXKKVRWNMY8PCGDEGYS
+            cost: 733924
+            path: contracts/stakeflow-unstake-mainnet.clar
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"
