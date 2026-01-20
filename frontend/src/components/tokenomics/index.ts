@@ -1,0 +1,1 @@
+export { TokenomicsCard } from './TokenomicsCard';
