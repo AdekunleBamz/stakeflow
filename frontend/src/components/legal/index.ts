@@ -1,0 +1,1 @@
+export { LegalCard } from './LegalCard';
