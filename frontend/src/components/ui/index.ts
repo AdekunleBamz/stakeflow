@@ -5,3 +5,7 @@ export { Badge } from "./Badge";
 export { Modal } from "./Modal";
 export { Toast, ToastContainer } from "./Toast";
 export { Input, NumberInput } from "./Input";
+export { ProgressBar } from "./ProgressBar";
+export { Tabs, TabPanel } from "./Tabs";
+export { Avatar } from "./Avatar";
+export { Skeleton, NFTCardSkeleton, StatsSkeleton, TableRowSkeleton } from "./Skeleton";
