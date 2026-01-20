@@ -1,0 +1,1 @@
+export { AmbassadorCard } from './AmbassadorCard';
