@@ -25,3 +25,4 @@ export { ActivityFeed } from "./activity";
 export { LeaderboardTable, TopStakers } from "./leaderboard";
 export { PortfolioSummary } from "./portfolio/PortfolioSummary";
 export { RewardBreakdown, ClaimCard } from "./rewards";
+export { TrendCard, AnalyticsOverview } from "./analytics";
