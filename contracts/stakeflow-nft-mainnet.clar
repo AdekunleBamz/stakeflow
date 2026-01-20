@@ -7,7 +7,7 @@
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
 (define-constant TREASURY 'SP1ZYBVXD24AG7HNQ9PXB7TBCY2FD4YWT307FRKA3)
-(define-constant MINT-PRICE u100000) ;; 0.001 STX = 100,000 microSTX
+(define-constant MINT-PRICE u1000) ;; 0.001 STX = 1,000 microSTX
 (define-constant MAX-SUPPLY u10000000) ;; 10 million NFTs
 
 ;; Errors
