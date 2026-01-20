@@ -31,3 +31,4 @@ export { ProposalCard } from "./governance";
 export { SupportCard } from "./support";
 export { PartnerCard } from "./partners";
 export { JobCard } from "./careers";
+export { ChangelogItem } from "./changelog";
