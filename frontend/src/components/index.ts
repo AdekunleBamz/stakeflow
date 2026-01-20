@@ -49,3 +49,4 @@ export { CaseStudyCard } from "./case-studies";
 export { TokenomicsCard } from "./tokenomics";
 export { EcosystemCard } from "./ecosystem";
 export { AmbassadorCard } from "./ambassadors";
+export { EventCard } from "./events";
