@@ -4,7 +4,7 @@
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
 (define-constant TREASURY 'SP1ZYBVXD24AG7HNQ9PXB7TBCY2FD4YWT307FRKA3)
-(define-constant UNSTAKE-FEE u100000) ;; 0.001 STX = 100,000 microSTX
+(define-constant UNSTAKE-FEE u1000) ;; 0.001 STX = 1,000 microSTX
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-NOT-STAKED (err u101))
 (define-constant ERR-NOT-OWNER (err u102))
