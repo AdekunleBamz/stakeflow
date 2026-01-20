@@ -1,0 +1,41 @@
+---
+id: 2
+name: StakeFlow V2/V3 Contracts Deployment
+network: mainnet
+stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
+plan:
+  batches:
+    # Batch 1: Deploy staking contract first (it references NFT v2 which is already deployed)
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: stakeflow-staking-mainnet-v2
+            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+            cost: 150000
+            path: contracts/stakeflow-staking-mainnet-v2.clar
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"
+    # Batch 2: Deploy rewards contract (references staking v2 and token mainnet)
+    - id: 1
+      transactions:
+        - contract-publish:
+            contract-name: stakeflow-rewards-mainnet-v2
+            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+            cost: 150000
+            path: contracts/stakeflow-rewards-mainnet-v2.clar
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"
+    # Batch 3: Deploy unstake v3 contract (references staking v2 and rewards v2)
+    - id: 2
+      transactions:
+        - contract-publish:
+            contract-name: stakeflow-unstake-mainnet-v3
+            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+            cost: 150000
+            path: contracts/stakeflow-unstake-mainnet-v3.clar
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"

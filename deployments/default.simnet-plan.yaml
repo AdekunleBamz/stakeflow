@@ -74,6 +74,11 @@ plan:
             path: contracts/sip-010-trait.clar
             clarity-version: 2
         - emulated-contract-publish:
+            contract-name: stakeflow-combined-v5
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/stakeflow-combined-v5.1.clar
+            clarity-version: 2
+        - emulated-contract-publish:
             contract-name: stakeflow-nft
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/stakeflow-nft.clar
