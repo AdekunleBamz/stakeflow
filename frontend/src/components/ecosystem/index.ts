@@ -1,0 +1,1 @@
+export { EcosystemCard } from './EcosystemCard';
