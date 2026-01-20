@@ -36,3 +36,4 @@ export { PressCard } from "./press";
 export { ResourceCard } from "./resources";
 export { SecurityBadge } from "./security";
 export { BrandAsset } from "./brand";
+export { IntegrationCard } from "./integrations";
