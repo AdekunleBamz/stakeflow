@@ -33,3 +33,4 @@ export { PartnerCard } from "./partners";
 export { JobCard } from "./careers";
 export { ChangelogItem } from "./changelog";
 export { PressCard } from "./press";
+export { ResourceCard } from "./resources";
