@@ -27,4 +27,5 @@ export {
   useTransactionReceipt,
   useTransactionToast,
 } from "./useTransactions";
+export { useAnalytics } from "./useAnalytics";
 
