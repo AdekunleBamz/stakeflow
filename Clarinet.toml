@@ -66,6 +66,11 @@ path = "contracts/stakeflow-unstake-mainnet.clar"
 clarity_version = 2
 epoch = 2.5
 
+[contracts.stakeflow-combined-v5]
+path = "contracts/stakeflow-combined-v5.1.clar"
+clarity_version = 2
+epoch = 2.5
+
 [repl.analysis]
 passes = ["check_checker"]
 check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }

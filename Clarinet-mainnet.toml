@@ -31,6 +31,27 @@ path = "contracts/stakeflow-unstake-mainnet.clar"
 clarity_version = 2
 epoch = 2.5
 
+# V2 Contracts - Updated to reference each other correctly
+[contracts.stakeflow-nft-mainnet-v2]
+path = "contracts/stakeflow-nft-mainnet-v2.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.stakeflow-staking-mainnet-v2]
+path = "contracts/stakeflow-staking-mainnet-v2.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.stakeflow-rewards-mainnet-v2]
+path = "contracts/stakeflow-rewards-mainnet-v2.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.stakeflow-unstake-mainnet-v2]
+path = "contracts/stakeflow-unstake-mainnet-v2.clar"
+clarity_version = 2
+epoch = 2.5
+
 [repl.analysis]
 passes = ["check_checker"]
 check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
