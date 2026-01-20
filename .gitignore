@@ -1,6 +1,5 @@
-# Settings and configuration
-settings/
-**/settings/
+# Settings and configuration (root level only)
+/settings/
 *.toml.bak
 
 # Scripts directory
