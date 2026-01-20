@@ -2,13 +2,9 @@
 
 import { RewardsChart, RewardsBarChart } from '@/components/charts';
 import { StatRing } from '@/components/charts/PieChart';
-
-const mockStats = {
-  totalStaked: 1240,
-  totalRewards: 482_340,
-  activeStakers: 318,
-  averageApy: 12.8,
-};
+import { AnalyticsOverview } from '@/components/analytics';
+import { LoadingSpinner } from '@/components/loading';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 const chartData = [
   { label: 'Mon', value: 120 },
@@ -21,6 +17,8 @@ const chartData = [
 ];
 
 export default function AnalyticsPage() {
+  const { data, isLoading, error } = useAnalytics();
+
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <div className="max-w-6xl mx-auto px-6 py-10 space-y-8">
@@ -29,24 +27,20 @@ export default function AnalyticsPage() {
           <p className="text-gray-400 mt-2">Track protocol performance and reward distribution.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="p-5 rounded-2xl bg-gray-900/40 border border-gray-800">
-            <p className="text-xs uppercase text-gray-500">Total Staked</p>
-            <p className="text-2xl font-semibold mt-2">{mockStats.totalStaked} NFTs</p>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-12">
+            <LoadingSpinner />
           </div>
-          <div className="p-5 rounded-2xl bg-gray-900/40 border border-gray-800">
-            <p className="text-xs uppercase text-gray-500">Rewards Distributed</p>
-            <p className="text-2xl font-semibold mt-2">{mockStats.totalRewards.toLocaleString()} STF</p>
-          </div>
-          <div className="p-5 rounded-2xl bg-gray-900/40 border border-gray-800">
-            <p className="text-xs uppercase text-gray-500">Active Stakers</p>
-            <p className="text-2xl font-semibold mt-2">{mockStats.activeStakers}</p>
-          </div>
-          <div className="p-5 rounded-2xl bg-gray-900/40 border border-gray-800">
-            <p className="text-xs uppercase text-gray-500">Average APY</p>
-            <p className="text-2xl font-semibold mt-2">{mockStats.averageApy}%</p>
-          </div>
-        </div>
+        ) : error ? (
+          <div className="text-center py-12 text-red-400">{error}</div>
+        ) : (
+          <AnalyticsOverview
+            totalStaked={data?.totalStaked || 0}
+            totalRewards={data?.totalRewards || 0}
+            activeStakers={data?.activeStakers || 0}
+            averageApy={data?.averageApy || 0}
+          />
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 p-6 rounded-2xl bg-gray-900/40 border border-gray-800">
