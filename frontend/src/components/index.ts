@@ -28,3 +28,4 @@ export { RewardBreakdown, ClaimCard } from "./rewards";
 export { TrendCard, AnalyticsOverview } from "./analytics";
 export { CommunityCard } from "./community";
 export { ProposalCard } from "./governance";
+export { SupportCard } from "./support";
