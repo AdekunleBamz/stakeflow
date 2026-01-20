@@ -29,4 +29,5 @@ export {
 } from "./useTransactions";
 export { useAnalytics } from "./useAnalytics";
 export { useActivity } from "./useActivity";
+export { useLeaderboard } from "./useLeaderboard";
 
