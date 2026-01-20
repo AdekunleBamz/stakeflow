@@ -21,3 +21,5 @@ export { RewardCalculator } from "./RewardCalculator";
 export { EmptyState, NoNFTsState, NoStakedNFTsState, WalletNotConnectedState } from "./EmptyState";
 export { FeatureCard, FeaturesSection } from "./FeaturesSection";
 export { Footer } from "./Footer";
+export { ActivityFeed } from "./activity";
+export { LeaderboardTable, TopStakers } from "./leaderboard";
