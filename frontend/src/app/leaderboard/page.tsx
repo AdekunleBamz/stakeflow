@@ -4,6 +4,8 @@ import { useState, type ChangeEvent } from 'react';
 import { LeaderboardTable } from '@/components/leaderboard/LeaderboardTable';
 import { TopStakers } from '@/components/leaderboard/TopStakers';
 import { MetricCard } from '@/components/ui/MetricCard';
+import { LoadingSpinner } from '@/components/loading';
+import { useLeaderboard } from '@/hooks/useLeaderboard';
 
 interface LeaderboardEntry {
   rank: number;
@@ -33,6 +35,7 @@ type SortField = 'rank' | 'stakedNFTs' | 'totalRewards' | 'currentStreak';
 export default function LeaderboardPage() {
   const [sortField, setSortField] = useState<SortField>('rank');
   const [timeframe, setTimeframe] = useState<'all' | 'month' | 'week'>('all');
+  const { entries, stats, isLoading, error } = useLeaderboard(1, 10, sortField, timeframe);
 
   const sortedLeaderboard = [...mockLeaderboard].sort((a, b) => {
     switch (sortField) {
@@ -58,10 +61,15 @@ export default function LeaderboardPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <MetricCard label="Total Stakers" value="1,247" />
-          <MetricCard label="NFTs Staked" value="3,891" />
-          <MetricCard label="STF Distributed" value="12.5M" trend="up" change="+4%" />
-          <MetricCard label="Avg. Stake Time" value="45 days" />
+          <MetricCard label="Total Stakers" value={stats ? stats.totalStakers.toLocaleString() : '1,247'} />
+          <MetricCard label="NFTs Staked" value={stats ? stats.totalNFTsStaked.toLocaleString() : '3,891'} />
+          <MetricCard
+            label="STF Distributed"
+            value={stats ? `${(stats.totalRewardsDistributed / 1_000_000).toFixed(1)}M` : '12.5M'}
+            trend="up"
+            change="+4%"
+          />
+          <MetricCard label="Avg. Stake Time" value={stats ? `${stats.averageStakeTime} days` : '45 days'} />
         </div>
 
         <div className="flex flex-wrap gap-4 mb-6 justify-between items-center">
@@ -92,11 +100,37 @@ export default function LeaderboardPage() {
           </select>
         </div>
 
-        <div className="mb-12">
-          <TopStakers stakers={sortedLeaderboard.slice(0, 3)} />
-        </div>
-
-        <LeaderboardTable entries={sortedLeaderboard} />
+        {isLoading ? (
+          <div className="flex items-center justify-center py-16">
+            <LoadingSpinner />
+          </div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-400">{error}</div>
+        ) : (
+          <>
+            <div className="mb-12">
+              <TopStakers
+                stakers={(entries.length ? entries : sortedLeaderboard).slice(0, 3).map((entry) => ({
+                  rank: entry.rank,
+                  address: entry.address,
+                  displayName: entry.displayName,
+                  stakedNFTs: entry.stakedNFTs,
+                  totalRewards: 'totalRewards' in entry ? entry.totalRewards : entry.totalEarned,
+                }))}
+              />
+            </div>
+            <LeaderboardTable
+              entries={(entries.length ? entries : sortedLeaderboard).map((entry) => ({
+                rank: entry.rank,
+                address: entry.address,
+                displayName: entry.displayName,
+                stakedNFTs: entry.stakedNFTs,
+                totalRewards: 'totalRewards' in entry ? entry.totalRewards : entry.totalEarned,
+                stakingDays: 'stakingDays' in entry ? entry.stakingDays : entry.currentStreak,
+              }))}
+            />
+          </>
+        )}
 
         <div className="flex justify-center gap-2 mt-8">
           <button className="px-4 py-2 bg-gray-800 text-gray-400 rounded-lg hover:bg-gray-700 transition-colors">
