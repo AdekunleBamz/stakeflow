@@ -1,3 +1,5 @@
+import React from 'react';
+
 type TierProgressProps = {
   currentTier: string;
   nextTier: string;

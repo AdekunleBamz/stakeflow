@@ -1,3 +1,5 @@
+import React from 'react';
+
 type StrategyPillarProps = {
   title: string;
   detail: string;

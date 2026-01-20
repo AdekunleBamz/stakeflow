@@ -1,3 +1,4 @@
+import React from 'react';
 import { TierBenefit, TierProgress } from "@/components/tiers";
 
 const tiers = [

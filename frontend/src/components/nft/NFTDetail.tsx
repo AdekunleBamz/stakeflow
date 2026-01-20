@@ -162,3 +162,49 @@ export function NFTDetail({
     </div>
   );
 }
+
+// NFTAttributes component
+interface NFTAttributesProps {
+  attributes: { trait_type: string; value: string | number }[];
+}
+
+export function NFTAttributes({ attributes }: NFTAttributesProps) {
+  return (
+    <div className="grid grid-cols-2 gap-3">
+      {attributes.map((attr, index) => (
+        <div key={index} className="bg-gray-800/50 rounded-xl p-3">
+          <p className="text-gray-400 text-xs uppercase tracking-wider">{attr.trait_type}</p>
+          <p className="text-white font-medium mt-1">{attr.value}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// NFTStats component
+interface NFTStatsProps {
+  tokenId: number;
+  isStaked: boolean;
+  rewards: number;
+}
+
+export function NFTStats({ tokenId, isStaked, rewards }: NFTStatsProps) {
+  return (
+    <div className="grid grid-cols-3 gap-4">
+      <div className="bg-gray-800/50 rounded-xl p-4 text-center">
+        <p className="text-gray-400 text-sm">Token ID</p>
+        <p className="text-xl font-bold text-white">#{tokenId}</p>
+      </div>
+      <div className="bg-gray-800/50 rounded-xl p-4 text-center">
+        <p className="text-gray-400 text-sm">Status</p>
+        <p className={`text-xl font-bold ${isStaked ? 'text-green-400' : 'text-gray-400'}`}>
+          {isStaked ? 'Staked' : 'Unstaked'}
+        </p>
+      </div>
+      <div className="bg-gray-800/50 rounded-xl p-4 text-center">
+        <p className="text-gray-400 text-sm">Rewards</p>
+        <p className="text-xl font-bold text-purple-400">{rewards.toLocaleString()}</p>
+      </div>
+    </div>
+  );
+}

@@ -7,13 +7,13 @@ import { LoadingSpinner } from '@/components/loading';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 const chartData = [
-  { label: 'Mon', value: 120 },
-  { label: 'Tue', value: 180 },
-  { label: 'Wed', value: 140 },
-  { label: 'Thu', value: 220 },
-  { label: 'Fri', value: 260 },
-  { label: 'Sat', value: 210 },
-  { label: 'Sun', value: 190 },
+  { date: 'Mon', rewards: 120 },
+  { date: 'Tue', rewards: 180 },
+  { date: 'Wed', rewards: 140 },
+  { date: 'Thu', rewards: 220 },
+  { date: 'Fri', rewards: 260 },
+  { date: 'Sat', rewards: 210 },
+  { date: 'Sun', rewards: 190 },
 ];
 
 export default function AnalyticsPage() {
@@ -50,7 +50,7 @@ export default function AnalyticsPage() {
           <div className="p-6 rounded-2xl bg-gray-900/40 border border-gray-800 space-y-6">
             <div>
               <h2 className="text-lg font-semibold mb-4">Distribution</h2>
-              <StatRing value={72} label="Staked" color="purple" />
+              <StatRing value={72} max={100} label="Staked" color="purple" />
               <div className="mt-4 text-sm text-gray-400">72% of minted NFTs are currently staked.</div>
             </div>
             <div>
@@ -65,10 +65,10 @@ export default function AnalyticsPage() {
           <h2 className="text-lg font-semibold mb-4">Staker Growth</h2>
           <RewardsBarChart
             data={[
-              { label: 'Week 1', value: 80 },
-              { label: 'Week 2', value: 110 },
-              { label: 'Week 3', value: 140 },
-              { label: 'Week 4', value: 160 },
+              { date: 'Week 1', rewards: 80 },
+              { date: 'Week 2', rewards: 110 },
+              { date: 'Week 3', rewards: 140 },
+              { date: 'Week 4', rewards: 160 },
             ]}
           />
         </div>

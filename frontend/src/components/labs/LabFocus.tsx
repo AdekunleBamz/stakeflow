@@ -1,3 +1,5 @@
+import React from 'react';
+
 type LabFocusProps = {
   title: string;
   detail: string;

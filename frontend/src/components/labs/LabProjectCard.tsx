@@ -1,3 +1,5 @@
+import React from 'react';
+
 type LabProjectCardProps = {
   title: string;
   summary: string;

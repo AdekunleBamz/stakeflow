@@ -1,3 +1,5 @@
+import React from 'react';
+
 type StrategyCardProps = {
   title: string;
   summary: string;

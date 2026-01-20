@@ -1,3 +1,4 @@
+import React from 'react';
 import { LockedPosition, LockedSummary } from "@/components/locked";
 
 const positions = [
