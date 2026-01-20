@@ -14,9 +14,18 @@ export function LoadingSpinner({ size = 'md', color = 'purple' }: LoadingSpinner
     lg: 'w-12 h-12',
   };
 
+  const colorClasses: Record<string, string> = {
+    purple: 'border-purple-500/30 border-t-purple-500',
+    green: 'border-green-500/30 border-t-green-500',
+    blue: 'border-blue-500/30 border-t-blue-500',
+    yellow: 'border-yellow-500/30 border-t-yellow-500',
+    red: 'border-red-500/30 border-t-red-500',
+  };
+  const spinnerColor = colorClasses[color] || colorClasses.purple;
+
   return (
     <div
-      className={`${sizeClasses[size]} border-2 border-${color}-500/30 border-t-${color}-500 rounded-full animate-spin`}
+      className={`${sizeClasses[size]} border-2 ${spinnerColor} rounded-full animate-spin`}
     />
   );
 }
@@ -26,12 +35,21 @@ interface LoadingDotsProps {
 }
 
 export function LoadingDots({ color = 'purple' }: LoadingDotsProps) {
+  const dotClasses: Record<string, string> = {
+    purple: 'bg-purple-500',
+    green: 'bg-green-500',
+    blue: 'bg-blue-500',
+    yellow: 'bg-yellow-500',
+    red: 'bg-red-500',
+  };
+  const dotColor = dotClasses[color] || dotClasses.purple;
+
   return (
     <div className="flex gap-1">
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-          className={`w-2 h-2 bg-${color}-500 rounded-full animate-bounce`}
+          className={`w-2 h-2 ${dotColor} rounded-full animate-bounce`}
           style={{ animationDelay: `${i * 0.1}s` }}
         />
       ))}
