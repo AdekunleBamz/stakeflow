@@ -1,8 +1,18 @@
 'use client';
 
-import { ActivityFeed } from '@/components/activity';
+import { ActivityFeed, ActivityFilters } from '@/components/activity';
 
-const items = [
+type ActivityItem = {
+  id: string;
+  type: 'mint' | 'stake' | 'unstake' | 'claim' | 'transfer';
+  title: string;
+  description: string;
+  timestamp: string;
+  amount?: number;
+  tokenIds?: number[];
+};
+
+const items: ActivityItem[] = [
   {
     id: '1',
     type: 'stake',
@@ -38,6 +48,7 @@ export default function ActivityPage() {
           <h1 className="text-3xl font-bold">Activity</h1>
           <p className="text-gray-400 mt-2">Recent activity across your wallet and staking history.</p>
         </div>
+        <ActivityFilters />
         <ActivityFeed items={items} />
       </div>
     </div>
