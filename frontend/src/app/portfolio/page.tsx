@@ -2,6 +2,7 @@
 
 import { NFTList, NFTStack } from '@/components/nft';
 import { TokenDisplay } from '@/components/common';
+import { PortfolioSummary } from '@/components/portfolio/PortfolioSummary';
 
 const mockNFTs = [
   { tokenId: 101, rewards: 120, isStaked: true },
@@ -19,19 +20,17 @@ export default function PortfolioPage() {
           <p className="text-gray-400 mt-2">Overview of your holdings and staked NFTs.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="space-y-4">
           <div className="p-5 rounded-2xl bg-gray-900/40 border border-gray-800">
             <p className="text-xs uppercase text-gray-500">Wallet Balance</p>
             <TokenDisplay symbol="STF" amount={12500} size="lg" />
           </div>
-          <div className="p-5 rounded-2xl bg-gray-900/40 border border-gray-800">
-            <p className="text-xs uppercase text-gray-500">Staked NFTs</p>
-            <p className="text-2xl font-semibold mt-2">{mockNFTs.filter((nft) => nft.isStaked).length}</p>
-          </div>
-          <div className="p-5 rounded-2xl bg-gray-900/40 border border-gray-800">
-            <p className="text-xs uppercase text-gray-500">Pending Rewards</p>
-            <p className="text-2xl font-semibold mt-2">184 STF</p>
-          </div>
+          <PortfolioSummary
+            totalValue={24500}
+            stakedValue={18200}
+            pendingRewards={184}
+            nftCount={mockNFTs.length}
+          />
         </div>
 
         <div className="p-6 rounded-2xl bg-gray-900/40 border border-gray-800">
