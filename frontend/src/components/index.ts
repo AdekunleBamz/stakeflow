@@ -56,3 +56,4 @@ export { ToolCard } from "./tools";
 export { ResearchCard, ResearchHighlights } from "./research";
 export { InsightCard, InsightTimeline } from "./insights";
 export { ReportCard, ReportFilters } from "./reports";
+export { BenchmarkCard, BenchmarkStat } from "./benchmarks";
