@@ -60,3 +60,4 @@ export { BenchmarkCard, BenchmarkStat } from "./benchmarks";
 export { AuditCard, AuditSummary } from "./audits";
 export { StrategyCard, StrategyPillar } from "./strategy";
 export { OpsMetric, OpsPlaybookCard } from "./operations";
+export { LabProjectCard, LabFocus } from "./labs";
