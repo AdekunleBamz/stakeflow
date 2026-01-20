@@ -52,3 +52,4 @@ export { AmbassadorCard } from "./ambassadors";
 export { EventCard } from "./events";
 export { AwardCard } from "./awards";
 export { LegalCard } from "./legal";
+export { ToolCard } from "./tools";
