@@ -40,3 +40,4 @@ export { IntegrationCard } from "./integrations";
 export { UpdateCard } from "./updates";
 export { FAQItem } from "./faq";
 export { NewsletterCard } from "./newsletter";
+export { StatTile } from "./metrics";
