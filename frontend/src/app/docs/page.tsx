@@ -1,6 +1,7 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui";
+import { DocStep } from "@/components/docs";
 
 export default function DocsPage() {
   return (
@@ -16,68 +17,44 @@ export default function DocsPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Getting Started</h2>
         
-        <Card className="mb-4">
-          <CardHeader>
-            <CardTitle>1. Connect Your Wallet</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-400 mb-4">
-              Click the "Connect Wallet" button in the navigation bar. StakeFlow supports:
-            </p>
-            <ul className="list-disc list-inside text-gray-400 space-y-2">
-              <li><strong>Leather Wallet</strong> - The most popular Stacks wallet</li>
-              <li><strong>Xverse Wallet</strong> - A mobile-friendly alternative</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <DocStep
+          title="1. Connect Your Wallet"
+          description={'Click the "Connect Wallet" button in the navigation bar. StakeFlow supports:'}
+          bullets={[
+            'Leather Wallet - The most popular Stacks wallet',
+            'Xverse Wallet - A mobile-friendly alternative',
+          ]}
+        />
 
-        <Card className="mb-4">
-          <CardHeader>
-            <CardTitle>2. Mint NFTs</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-400 mb-4">
-              Each StakeFlow NFT costs only 0.001 STX to mint. You can mint up to 10 NFTs per transaction.
-            </p>
-            <ul className="list-disc list-inside text-gray-400 space-y-2">
-              <li>Select the number of NFTs to mint</li>
-              <li>Click "Mint" and confirm the transaction</li>
-              <li>Wait for confirmation (usually 1-2 minutes)</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <DocStep
+          title="2. Mint NFTs"
+          description={'Each StakeFlow NFT costs only 0.001 STX to mint. You can mint up to 10 NFTs per transaction.'}
+          bullets={[
+            'Select the number of NFTs to mint',
+            'Click "Mint" and confirm the transaction',
+            'Wait for confirmation (usually 1-2 minutes)',
+          ]}
+        />
 
-        <Card className="mb-4">
-          <CardHeader>
-            <CardTitle>3. Stake Your NFTs</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-400 mb-4">
-              Once you have NFTs, you can stake them to start earning STF tokens.
-            </p>
-            <ul className="list-disc list-inside text-gray-400 space-y-2">
-              <li>Select NFTs from your collection</li>
-              <li>Click "Stake Selected" to batch stake</li>
-              <li>Start earning rewards immediately</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <DocStep
+          title="3. Stake Your NFTs"
+          description={'Once you have NFTs, you can stake them to start earning STF tokens.'}
+          bullets={[
+            'Select NFTs from your collection',
+            'Click "Stake Selected" to batch stake',
+            'Start earning rewards immediately',
+          ]}
+        />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>4. Claim Rewards</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-400 mb-4">
-              Your rewards accumulate automatically. Claim them anytime from the Rewards panel.
-            </p>
-            <ul className="list-disc list-inside text-gray-400 space-y-2">
-              <li>View pending rewards in the Rewards panel</li>
-              <li>Click "Claim Rewards" to collect</li>
-              <li>STF tokens will be sent to your wallet</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <DocStep
+          title="4. Claim Rewards"
+          description={'Your rewards accumulate automatically. Claim them anytime from the Rewards panel.'}
+          bullets={[
+            'View pending rewards in the Rewards panel',
+            'Click "Claim Rewards" to collect',
+            'STF tokens will be sent to your wallet',
+          ]}
+        />
       </section>
 
       {/* Reward Mechanics */}
