@@ -65,3 +65,8 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Lock files (regenerated on install)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
