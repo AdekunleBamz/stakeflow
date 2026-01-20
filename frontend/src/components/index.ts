@@ -41,3 +41,4 @@ export { UpdateCard } from "./updates";
 export { FAQItem } from "./faq";
 export { NewsletterCard } from "./newsletter";
 export { StatTile } from "./metrics";
+export { TestimonialCard } from "./testimonials";
