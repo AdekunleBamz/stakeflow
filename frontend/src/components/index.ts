@@ -45,3 +45,4 @@ export { TestimonialCard } from "./testimonials";
 export { PricingCard } from "./pricing";
 export { DocStep } from "./docs";
 export { GuideCard } from "./guides";
+export { CaseStudyCard } from "./case-studies";
