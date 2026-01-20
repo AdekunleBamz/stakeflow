@@ -12,4 +12,19 @@ export { useTransaction, useTransactionQueue } from "./useTransaction";
 export { useForm, useAsync, useCopyToClipboard, useOnScreen } from "./useForm";
 export { useNotifications, useToast as useToastNotification, useConfirm, useCountdown } from "./useNotifications";
 export { useContractStats, useUserContractData, useNFTOwnership } from "./useContract";
+export {
+  useStakingStats as useStakingData,
+  useRewardsHistory,
+  useStakeNFT,
+  useUnstakeNFT,
+  useClaimRewards,
+  useAutoRefresh as useAutoRefreshStaking,
+} from "./useStaking";
+export {
+  useTransactionHistory,
+  usePendingTransactions,
+  useTransactionStatus,
+  useTransactionReceipt,
+  useTransactionToast,
+} from "./useTransactions";
 
