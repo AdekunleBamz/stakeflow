@@ -38,3 +38,4 @@ export { SecurityBadge } from "./security";
 export { BrandAsset } from "./brand";
 export { IntegrationCard } from "./integrations";
 export { UpdateCard } from "./updates";
+export { FAQItem } from "./faq";

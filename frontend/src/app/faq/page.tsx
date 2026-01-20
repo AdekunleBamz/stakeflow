@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
+import { FAQItem } from "@/components/faq";
 
 export default function FAQPage() {
   const faqs = [
@@ -67,14 +67,7 @@ export default function FAQPage() {
 
       <div className="space-y-4">
         {faqs.map((faq, index) => (
-          <Card key={index}>
-            <CardHeader>
-              <CardTitle className="text-lg">{faq.question}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-400">{faq.answer}</p>
-            </CardContent>
-          </Card>
+          <FAQItem key={index} question={faq.question} answer={faq.answer} />
         ))}
       </div>
     </div>
