@@ -28,4 +28,5 @@ export {
   useTransactionToast,
 } from "./useTransactions";
 export { useAnalytics } from "./useAnalytics";
+export { useActivity } from "./useActivity";
 

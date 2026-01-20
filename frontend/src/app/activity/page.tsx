@@ -1,6 +1,8 @@
 'use client';
 
 import { ActivityFeed, ActivityFilters } from '@/components/activity';
+import { LoadingSpinner } from '@/components/loading';
+import { useActivity } from '@/hooks/useActivity';
 
 type ActivityItem = {
   id: string;
@@ -41,6 +43,8 @@ const items: ActivityItem[] = [
 ];
 
 export default function ActivityPage() {
+  const { activity, isLoading, error } = useActivity('demo');
+
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <div className="max-w-4xl mx-auto px-6 py-10 space-y-8">
@@ -49,7 +53,15 @@ export default function ActivityPage() {
           <p className="text-gray-400 mt-2">Recent activity across your wallet and staking history.</p>
         </div>
         <ActivityFilters />
-        <ActivityFeed items={items} />
+        {isLoading ? (
+          <div className="flex items-center justify-center py-12">
+            <LoadingSpinner />
+          </div>
+        ) : error ? (
+          <div className="text-center py-12 text-red-400">{error}</div>
+        ) : (
+          <ActivityFeed items={activity.length ? activity : items} />
+        )}
       </div>
     </div>
   );
