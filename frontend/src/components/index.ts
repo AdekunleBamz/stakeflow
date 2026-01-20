@@ -23,3 +23,4 @@ export { FeatureCard, FeaturesSection } from "./FeaturesSection";
 export { Footer } from "./Footer";
 export { ActivityFeed } from "./activity";
 export { LeaderboardTable, TopStakers } from "./leaderboard";
+export { PortfolioSummary } from "./portfolio/PortfolioSummary";
