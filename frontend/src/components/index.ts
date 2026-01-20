@@ -54,3 +54,4 @@ export { AwardCard } from "./awards";
 export { LegalCard } from "./legal";
 export { ToolCard } from "./tools";
 export { ResearchCard, ResearchHighlights } from "./research";
+export { InsightCard, InsightTimeline } from "./insights";

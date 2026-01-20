@@ -1,39 +1,69 @@
-'use client';
+import { InsightCard, InsightTimeline } from "@/components/insights";
 
-import { MetricCard } from '@/components/ui/MetricCard';
-import { StatusPill } from '@/components/ui/StatusPill';
+const snapshot = [
+  {
+    title: "Reward momentum",
+    summary: "Average reward rates stabilized after the summer volatility cycle.",
+    metric: "+4.2% QoQ",
+    timeframe: "Quarterly",
+  },
+  {
+    title: "Validator reliability",
+    summary: "Median uptime climbed as operators adopted automated failover.",
+    metric: "99.8%",
+    timeframe: "Monthly",
+  },
+  {
+    title: "Delegator sentiment",
+    summary: "More wallets split stake across three or more validators for resilience.",
+    metric: "+18%",
+    timeframe: "Weekly",
+  },
+];
+
+const timeline = [
+  {
+    title: "Liquidity depth expanded",
+    detail: "Bridge inflows accelerated and DEX liquidity grew on key pairs.",
+    date: "Sep 2024",
+  },
+  {
+    title: "Operator diversification",
+    detail: "New operators entered the top 20, reducing concentration risk.",
+    date: "Aug 2024",
+  },
+  {
+    title: "Governance turnout",
+    detail: "Validator participation hit new highs during the governance cycle.",
+    date: "Jul 2024",
+  },
+];
 
 export default function InsightsPage() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
-      <div className="max-w-5xl mx-auto px-6 py-10 space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold">Insights</h1>
-            <p className="text-gray-400 mt-2">Operational health and protocol metrics.</p>
-          </div>
-          <StatusPill label="Operational" status="success" />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <MetricCard label="Avg. Claim Time" value="6h" change="-12%" trend="up" />
-          <MetricCard label="Pending Claims" value="42" change="+6" trend="down" />
-          <MetricCard label="Rewards Velocity" value="1.2K STF" change="+4%" trend="up" />
-        </div>
-
-        <div className="p-6 rounded-2xl bg-gray-900/40 border border-gray-800 space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Protocol Health</h2>
-            <div className="flex gap-2">
-              <StatusPill label="Staking" status="success" />
-              <StatusPill label="Rewards" status="info" />
-              <StatusPill label="Mint" status="warning" />
-            </div>
-          </div>
-          <p className="text-gray-400 text-sm">
-            Staking and rewards systems are stable. Minting demand is high; keep an eye on supply.
+    <div className="min-h-screen bg-slate-950 pb-20 pt-24 text-white">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4">
+        <header className="space-y-4">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-400">Insights</p>
+          <h1 className="text-4xl font-semibold md:text-5xl">Market signals for stakers</h1>
+          <p className="max-w-2xl text-lg text-slate-300">
+            Curated trends, timelines, and signals to help you plan your next staking move.
           </p>
-        </div>
+        </header>
+
+        <section className="grid gap-6 md:grid-cols-3">
+          {snapshot.map((item) => (
+            <InsightCard key={item.title} {...item} />
+          ))}
+        </section>
+
+        <section className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6">
+          <h2 className="text-2xl font-semibold">Timeline</h2>
+          <p className="mt-2 text-sm text-slate-300">Milestones shaping delegator behavior.</p>
+          <div className="mt-6">
+            <InsightTimeline items={timeline} />
+          </div>
+        </section>
       </div>
     </div>
   );
