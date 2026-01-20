@@ -34,3 +34,4 @@ export { JobCard } from "./careers";
 export { ChangelogItem } from "./changelog";
 export { PressCard } from "./press";
 export { ResourceCard } from "./resources";
+export { SecurityBadge } from "./security";
