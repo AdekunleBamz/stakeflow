@@ -1,6 +1,7 @@
 'use client';
 
 import { useWallet } from '@/contexts/WalletContext';
+import { ClaimCard, RewardBreakdown } from '@/components/rewards';
 
 interface RewardTier {
   name: string;
@@ -93,6 +94,20 @@ export default function RewardsPage() {
                   Claim All Rewards
                 </button>
               </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+              <div className="lg:col-span-2">
+                <RewardBreakdown
+                  items={[
+                    { label: 'Base rewards', value: 820, description: 'Daily accrual' },
+                    { label: 'Tier bonus', value: 210, description: `${currentTier.name} multiplier` },
+                    { label: 'Streak bonus', value: 120, description: '7-day streak' },
+                  ]}
+                  total={1150}
+                />
+              </div>
+              <ClaimCard amount={1250} nextClaimIn="2h" />
             </div>
 
             {/* Reward Tiers */}
