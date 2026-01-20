@@ -30,3 +30,4 @@ export { CommunityCard } from "./community";
 export { ProposalCard } from "./governance";
 export { SupportCard } from "./support";
 export { PartnerCard } from "./partners";
+export { JobCard } from "./careers";
