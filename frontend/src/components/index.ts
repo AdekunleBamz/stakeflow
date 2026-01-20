@@ -39,3 +39,4 @@ export { BrandAsset } from "./brand";
 export { IntegrationCard } from "./integrations";
 export { UpdateCard } from "./updates";
 export { FAQItem } from "./faq";
+export { NewsletterCard } from "./newsletter";
