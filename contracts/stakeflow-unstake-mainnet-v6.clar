@@ -1,15 +1,16 @@
-;; StakeFlow Unstake Contract V4
+;; StakeFlow Unstake Contract V6
 ;; Unstake NFTs and claim rewards (0.001 STX fee)
-;; MAINNET VERSION - References v3 staking and rewards by full address
+;; MAINNET VERSION V6 - Upgraded contract with v6 references
 
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
 (define-constant TREASURY 'SP1ZYBVXD24AG7HNQ9PXB7TBCY2FD4YWT307FRKA3)
-(define-constant UNSTAKE-FEE u1000)
+(define-constant UNSTAKE-FEE u1000) ;; 0.001 STX = 1,000 microSTX
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-NOT-STAKED (err u101))
 (define-constant ERR-NOT-OWNER (err u102))
 (define-constant ERR-TRANSFER-FAILED (err u103))
+(define-constant ERR-INSUFFICIENT-FUNDS (err u104))
 
 ;; Data vars
 (define-data-var unstake-fee uint UNSTAKE-FEE)
@@ -23,29 +24,41 @@
 (define-public (unstake-nft (token-id uint))
   (let
     (
-      (stake-info (unwrap! (contract-call? 'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-staking-mainnet-v3 get-stake-info token-id) ERR-NOT-STAKED))
+      ;; V6: Reference the v6 staking contract
+      (stake-info (unwrap! (contract-call? .stakeflow-staking-mainnet-v6 get-stake-info token-id) ERR-NOT-STAKED))
       (staker (get owner stake-info))
     )
+    ;; Check not paused
     (asserts! (not (var-get unstaking-paused)) ERR-NOT-AUTHORIZED)
+    ;; Verify caller is the original staker
     (asserts! (is-eq tx-sender staker) ERR-NOT-OWNER)
+    ;; Collect unstake fee
     (try! (stx-transfer? (var-get unstake-fee) tx-sender TREASURY))
-    (try! (contract-call? 'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-rewards-mainnet-v3 claim-and-distribute token-id staker))
-    (try! (contract-call? 'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-staking-mainnet-v3 release-nft token-id staker))
+    ;; Claim pending rewards (V6: Reference the v6 rewards contract)
+    (try! (contract-call? .stakeflow-rewards-mainnet-v6 claim-and-distribute token-id staker))
+    ;; Remove stake and return NFT (V6: Reference the v6 staking contract)
+    (try! (contract-call? .stakeflow-staking-mainnet-v6 release-nft token-id staker))
+    ;; Update fees collected
     (var-set total-fees-collected (+ (var-get total-fees-collected) (var-get unstake-fee)))
     (ok true)
   )
 )
 
-;; Emergency unstake without rewards
+;; Emergency unstake without rewards (if rewards contract fails)
 (define-public (emergency-unstake (token-id uint))
   (let
     (
-      (stake-info (unwrap! (contract-call? 'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-staking-mainnet-v3 get-stake-info token-id) ERR-NOT-STAKED))
+      ;; V6: Reference the v6 staking contract
+      (stake-info (unwrap! (contract-call? .stakeflow-staking-mainnet-v6 get-stake-info token-id) ERR-NOT-STAKED))
       (staker (get owner stake-info))
     )
+    ;; Verify caller is the original staker
     (asserts! (is-eq tx-sender staker) ERR-NOT-OWNER)
+    ;; Collect unstake fee
     (try! (stx-transfer? (var-get unstake-fee) tx-sender TREASURY))
-    (try! (contract-call? 'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-staking-mainnet-v3 release-nft token-id staker))
+    ;; Remove stake and return NFT (skip rewards) (V6: Reference the v6 staking contract)
+    (try! (contract-call? .stakeflow-staking-mainnet-v6 release-nft token-id staker))
+    ;; Update fees collected
     (var-set total-fees-collected (+ (var-get total-fees-collected) (var-get unstake-fee)))
     (ok true)
   )
@@ -61,6 +74,10 @@
 
 (define-read-only (get-total-fees-collected)
   (var-get total-fees-collected)
+)
+
+(define-read-only (is-unstaking-paused)
+  (var-get unstaking-paused)
 )
 
 (define-read-only (get-treasury)

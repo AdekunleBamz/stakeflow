@@ -74,19 +74,9 @@ plan:
             path: contracts/sip-010-trait.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: stakeflow-combined-v5
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-combined-v5.1.clar
-            clarity-version: 2
-        - emulated-contract-publish:
             contract-name: stakeflow-nft
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/stakeflow-nft.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: stakeflow-nft-mainnet
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-nft-mainnet.clar
             clarity-version: 2
         - emulated-contract-publish:
             contract-name: stakeflow-staking
@@ -104,28 +94,8 @@ plan:
             path: contracts/stakeflow-rewards.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: stakeflow-staking-mainnet
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-staking-mainnet.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: stakeflow-token-mainnet
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-token-mainnet.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: stakeflow-rewards-mainnet
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-rewards-mainnet.clar
-            clarity-version: 2
-        - emulated-contract-publish:
             contract-name: stakeflow-unstake
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/stakeflow-unstake.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: stakeflow-unstake-mainnet
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-unstake-mainnet.clar
             clarity-version: 2
       epoch: "2.5"

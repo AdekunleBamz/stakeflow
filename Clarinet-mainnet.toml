@@ -1,56 +1,39 @@
 [project]
 name = "stakeflow-mainnet"
-description = "StakeFlow - NFT staking platform on Stacks Mainnet"
+description = "StakeFlow - NFT staking platform on Stacks Mainnet V6"
 authors = []
 telemetry = true
 cache_dir = "./.cache"
 
-# Only mainnet contracts
+# Token contract (shared across all versions)
 [contracts.stakeflow-token-mainnet]
 path = "contracts/stakeflow-token-mainnet.clar"
 clarity_version = 2
 epoch = 2.5
 
-[contracts.stakeflow-nft-mainnet]
-path = "contracts/stakeflow-nft-mainnet.clar"
+# V6 Contracts - Latest upgraded version (ordered by dependencies)
+[contracts.stakeflow-nft-mainnet-v6]
+path = "contracts/stakeflow-nft-mainnet-v6.clar"
 clarity_version = 2
 epoch = 2.5
 
-[contracts.stakeflow-staking-mainnet]
-path = "contracts/stakeflow-staking-mainnet.clar"
+[contracts.stakeflow-staking-mainnet-v6]
+path = "contracts/stakeflow-staking-mainnet-v6.clar"
 clarity_version = 2
 epoch = 2.5
+depends_on = ["stakeflow-nft-mainnet-v6"]
 
-[contracts.stakeflow-rewards-mainnet]
-path = "contracts/stakeflow-rewards-mainnet.clar"
+[contracts.stakeflow-rewards-mainnet-v6]
+path = "contracts/stakeflow-rewards-mainnet-v6.clar"
 clarity_version = 2
 epoch = 2.5
+depends_on = ["stakeflow-staking-mainnet-v6", "stakeflow-token-mainnet"]
 
-[contracts.stakeflow-unstake-mainnet]
-path = "contracts/stakeflow-unstake-mainnet.clar"
+[contracts.stakeflow-unstake-mainnet-v6]
+path = "contracts/stakeflow-unstake-mainnet-v6.clar"
 clarity_version = 2
 epoch = 2.5
-
-# V2 Contracts - Updated to reference each other correctly
-[contracts.stakeflow-nft-mainnet-v2]
-path = "contracts/stakeflow-nft-mainnet-v2.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-staking-mainnet-v2]
-path = "contracts/stakeflow-staking-mainnet-v2.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-rewards-mainnet-v2]
-path = "contracts/stakeflow-rewards-mainnet-v2.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-unstake-mainnet-v2]
-path = "contracts/stakeflow-unstake-mainnet-v2.clar"
-clarity_version = 2
-epoch = 2.5
+depends_on = ["stakeflow-staking-mainnet-v6", "stakeflow-rewards-mainnet-v6"]
 
 [repl.analysis]
 passes = ["check_checker"]

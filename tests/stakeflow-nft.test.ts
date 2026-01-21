@@ -9,7 +9,7 @@ const treasury = "SP1ZYBVXD24AG7HNQ9PXB7TBCY2FD4YWT307FRKA3";
 describe("StakeFlow NFT", () => {
   it("should return correct NFT metadata", () => {
     const mintPrice = simnet.callReadOnlyFn("stakeflow-nft", "get-mint-price", [], deployer);
-    expect(mintPrice.result).toBeUint(100000);
+    expect(mintPrice.result).toBeUint(1000); // 0.001 STX = 1000 microSTX
 
     const maxSupply = simnet.callReadOnlyFn("stakeflow-nft", "get-max-supply", [], deployer);
     expect(maxSupply.result).toBeUint(10000000);

@@ -2,14 +2,8 @@
 /settings/
 *.toml.bak
 
-# Scripts directory
-scripts/
-**/scripts/
-
-# Test wallets and sensitive data
-test-wallets.json
-distribution-results.json
-staggered-results.json
+# Internal tools
+function/
 
 # Build cache
 .cache/**

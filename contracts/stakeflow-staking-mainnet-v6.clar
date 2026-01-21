@@ -1,6 +1,6 @@
-;; StakeFlow Staking Contract V2
+;; StakeFlow Staking Contract V6
 ;; Stake NFTs to earn STF token rewards
-;; MAINNET VERSION V2 - Uses authorized callers pattern
+;; MAINNET VERSION V6 - Upgraded contract with v6 references
 
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
@@ -41,8 +41,8 @@
 (define-public (stake-nft (token-id uint))
   (let
     (
-      ;; V2: Reference the v2 NFT contract
-      (nft-owner (unwrap! (contract-call? .stakeflow-nft-mainnet-v2 get-owner token-id) ERR-NOT-TOKEN-OWNER))
+      ;; V6: Reference the v6 NFT contract
+      (nft-owner (unwrap! (contract-call? .stakeflow-nft-mainnet-v6 get-owner token-id) ERR-NOT-TOKEN-OWNER))
     )
     ;; Check staking is not paused
     (asserts! (not (var-get staking-paused)) ERR-NOT-AUTHORIZED)
@@ -50,8 +50,8 @@
     (asserts! (is-eq tx-sender nft-owner) ERR-NOT-TOKEN-OWNER)
     ;; Check not already staked
     (asserts! (is-none (map-get? staked-nfts { token-id: token-id })) ERR-ALREADY-STAKED)
-    ;; Transfer NFT to this contract (V2: Reference the v2 NFT contract)
-    (try! (contract-call? .stakeflow-nft-mainnet-v2 transfer token-id tx-sender (as-contract tx-sender)))
+    ;; Transfer NFT to this contract (V6: Reference the v6 NFT contract)
+    (try! (contract-call? .stakeflow-nft-mainnet-v6 transfer token-id tx-sender (as-contract tx-sender)))
     ;; Record stake info
     (map-set staked-nfts
       { token-id: token-id }
@@ -77,8 +77,8 @@
     (asserts! (is-authorized-caller contract-caller) ERR-NOT-AUTHORIZED)
     ;; Verify recipient is the original staker
     (asserts! (is-eq recipient (get owner stake-info)) ERR-NOT-AUTHORIZED)
-    ;; Transfer NFT back to owner (V2: Reference the v2 NFT contract)
-    (try! (as-contract (contract-call? .stakeflow-nft-mainnet-v2 transfer token-id tx-sender recipient)))
+    ;; Transfer NFT back to owner (V6: Reference the v6 NFT contract)
+    (try! (as-contract (contract-call? .stakeflow-nft-mainnet-v6 transfer token-id tx-sender recipient)))
     ;; Remove from staked map
     (map-delete staked-nfts { token-id: token-id })
     ;; Decrement total staked

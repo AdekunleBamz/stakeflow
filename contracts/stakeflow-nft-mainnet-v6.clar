@@ -1,6 +1,6 @@
-;; StakeFlow NFT - SIP-009 Non-Fungible Token
+;; StakeFlow NFT V6 - SIP-009 Non-Fungible Token
 ;; Minting costs 0.001 STX per NFT
-;; MAINNET VERSION
+;; MAINNET VERSION V6 - Upgraded contract
 
 (impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
 

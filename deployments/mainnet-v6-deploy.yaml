@@ -1,0 +1,92 @@
+# StakeFlow V6 Mainnet Deployment Plan
+# Deploy order: NFT -> Staking -> Rewards -> Unstake
+# Token contract is already deployed - authorize new contracts as minters
+
+---
+network: mainnet
+stacks-node: "https://stacks-node-api.mainnet.stacks.co"
+
+# Deployment batches - each batch waits for previous to confirm
+batches:
+  # Batch 1: Deploy NFT contract (no dependencies)
+  - id: 1
+    transactions:
+      - contract-publish:
+          contract-name: stakeflow-nft-mainnet-v6
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          path: contracts/stakeflow-nft-mainnet-v6.clar
+          clarity-version: 2
+          cost: 500000  # 0.5 STX
+
+  # Batch 2: Deploy Staking contract (depends on NFT v6)
+  - id: 2
+    transactions:
+      - contract-publish:
+          contract-name: stakeflow-staking-mainnet-v6
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          path: contracts/stakeflow-staking-mainnet-v6.clar
+          clarity-version: 2
+          cost: 500000
+
+  # Batch 3: Deploy Rewards contract (depends on Staking v6)
+  - id: 3
+    transactions:
+      - contract-publish:
+          contract-name: stakeflow-rewards-mainnet-v6
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          path: contracts/stakeflow-rewards-mainnet-v6.clar
+          clarity-version: 2
+          cost: 500000
+
+  # Batch 4: Deploy Unstake contract (depends on Staking + Rewards v6)
+  - id: 4
+    transactions:
+      - contract-publish:
+          contract-name: stakeflow-unstake-mainnet-v6
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          path: contracts/stakeflow-unstake-mainnet-v6.clar
+          clarity-version: 2
+          cost: 500000
+
+  # Batch 5: Authorization - Set up contract permissions
+  - id: 5
+    transactions:
+      # Authorize rewards-v6 to mint tokens
+      - contract-call:
+          contract-id: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-token-mainnet
+          method: set-authorized-minter
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          parameters:
+            - "'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-rewards-mainnet-v6"
+            - "true"
+          cost: 100000
+
+      # Authorize unstake-v6 to call staking-v6 release-nft
+      - contract-call:
+          contract-id: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-staking-mainnet-v6
+          method: set-authorized-caller
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          parameters:
+            - "'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-unstake-mainnet-v6"
+            - "true"
+          cost: 100000
+
+      # Authorize rewards-v6 to call staking-v6 update-last-claim
+      - contract-call:
+          contract-id: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-staking-mainnet-v6
+          method: set-authorized-caller
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          parameters:
+            - "'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-rewards-mainnet-v6"
+            - "true"
+          cost: 100000
+
+      # Authorize unstake-v6 to call rewards-v6 claim-and-distribute
+      - contract-call:
+          contract-id: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-rewards-mainnet-v6
+          method: set-authorized-caller
+          expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
+          parameters:
+            - "'SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT.stakeflow-unstake-mainnet-v6"
+            - "true"
+          cost: 100000

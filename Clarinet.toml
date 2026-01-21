@@ -1,6 +1,6 @@
 [project]
 name = "stakeflow"
-description = "StakeFlow - NFT staking platform on Stacks. Mint NFTs, stake to earn STF tokens."
+description = "StakeFlow - NFT staking platform on Stacks"
 authors = []
 telemetry = true
 cache_dir = "./.cache"
@@ -24,61 +24,26 @@ epoch = 2.5
 path = "contracts/stakeflow-nft.clar"
 clarity_version = 2
 epoch = 2.5
+depends_on = ["sip-009-trait"]
 
 [contracts.stakeflow-staking]
 path = "contracts/stakeflow-staking.clar"
 clarity_version = 2
 epoch = 2.5
+depends_on = ["stakeflow-nft"]
 
 [contracts.stakeflow-rewards]
 path = "contracts/stakeflow-rewards.clar"
 clarity_version = 2
 epoch = 2.5
+depends_on = ["stakeflow-staking", "stakeflow-token"]
 
 [contracts.stakeflow-unstake]
 path = "contracts/stakeflow-unstake.clar"
 clarity_version = 2
 epoch = 2.5
-
-# Mainnet contracts (use official SIP traits)
-[contracts.stakeflow-token-mainnet]
-path = "contracts/stakeflow-token-mainnet.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-nft-mainnet]
-path = "contracts/stakeflow-nft-mainnet.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-staking-mainnet]
-path = "contracts/stakeflow-staking-mainnet.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-rewards-mainnet]
-path = "contracts/stakeflow-rewards-mainnet.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-unstake-mainnet]
-path = "contracts/stakeflow-unstake-mainnet.clar"
-clarity_version = 2
-epoch = 2.5
-
-[contracts.stakeflow-combined-v5]
-path = "contracts/stakeflow-combined-v5.1.clar"
-clarity_version = 2
-epoch = 2.5
+depends_on = ["stakeflow-staking", "stakeflow-rewards"]
 
 [repl.analysis]
 passes = ["check_checker"]
 check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
-
-# Check-checker settings:
-# trusted_sender: if true, inputs are trusted after tx_sender has been checked.
-# trusted_caller: if true, inputs are trusted after contract-caller has been checked.
-# callee_filter: if true, untrusted data may be passed into a private function without a
-# warning, if it gets checked inside. This check will also propagate up to the
-# caller.
-# More informations: https://www.hiro.so/blog/new-safety-checks-in-clarinet
