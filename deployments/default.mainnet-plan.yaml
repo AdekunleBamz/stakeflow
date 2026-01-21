@@ -1,95 +1,34 @@
 ---
 id: 0
-name: Mainnet deployment
+name: "StakeFlow V7 Mainnet Deployment"
 network: mainnet
 stacks-node: "https://api.hiro.so"
 bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
 plan:
   batches:
+    # Only deploy staking, rewards, and unstake v7
+    # NFT v6 is already deployed, token-mainnet is already deployed
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: sip-009-trait
+            contract-name: stakeflow-staking-mainnet-v7
             expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 81889563
-            path: contracts/sip-009-trait.clar
+            cost: 50000
+            path: contracts/stakeflow-staking-mainnet-v7.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
-            contract-name: sip-010-trait
+            contract-name: stakeflow-rewards-mainnet-v7
             expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41314910
-            path: contracts/sip-010-trait.clar
+            cost: 50000
+            path: contracts/stakeflow-rewards-mainnet-v7.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
-            contract-name: stakeflow-nft
+            contract-name: stakeflow-unstake-mainnet-v7
             expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41340255
-            path: contracts/stakeflow-nft.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-nft-mainnet
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41340255
-            path: contracts/stakeflow-nft-mainnet.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-staking
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41343634
-            path: contracts/stakeflow-staking.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-token
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41333496
-            path: contracts/stakeflow-token.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-rewards
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41343634
-            path: contracts/stakeflow-rewards.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-staking-mainnet
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41345324
-            path: contracts/stakeflow-staking-mainnet.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-token-mainnet
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41333496
-            path: contracts/stakeflow-token-mainnet.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-rewards-mainnet
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41345324
-            path: contracts/stakeflow-rewards-mainnet.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-unstake
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41333496
-            path: contracts/stakeflow-unstake.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: stakeflow-unstake-mainnet
-            expected-sender: SP5K2RHMSBH4PAP4PGX77MCVNK1ZEED07CWX9TJT
-            cost: 41335186
-            path: contracts/stakeflow-unstake-mainnet.clar
+            cost: 50000
+            path: contracts/stakeflow-unstake-mainnet-v7.clar
             anchor-block-only: true
             clarity-version: 2
       epoch: "2.5"

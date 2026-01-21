@@ -1,6 +1,6 @@
 [project]
 name = "stakeflow-mainnet"
-description = "StakeFlow - NFT staking platform on Stacks Mainnet V6"
+description = "StakeFlow - NFT staking platform on Stacks Mainnet V7"
 authors = []
 telemetry = true
 cache_dir = "./.cache"
@@ -11,29 +11,30 @@ path = "contracts/stakeflow-token-mainnet.clar"
 clarity_version = 2
 epoch = 2.5
 
-# V6 Contracts - Latest upgraded version (ordered by dependencies)
+# NFT V6 - Already deployed on mainnet
 [contracts.stakeflow-nft-mainnet-v6]
 path = "contracts/stakeflow-nft-mainnet-v6.clar"
 clarity_version = 2
 epoch = 2.5
 
-[contracts.stakeflow-staking-mainnet-v6]
-path = "contracts/stakeflow-staking-mainnet-v6.clar"
+# V7 Contracts - Staking, Rewards, Unstake (ordered by dependencies)
+[contracts.stakeflow-staking-mainnet-v7]
+path = "contracts/stakeflow-staking-mainnet-v7.clar"
 clarity_version = 2
 epoch = 2.5
 depends_on = ["stakeflow-nft-mainnet-v6"]
 
-[contracts.stakeflow-rewards-mainnet-v6]
-path = "contracts/stakeflow-rewards-mainnet-v6.clar"
+[contracts.stakeflow-rewards-mainnet-v7]
+path = "contracts/stakeflow-rewards-mainnet-v7.clar"
 clarity_version = 2
 epoch = 2.5
-depends_on = ["stakeflow-staking-mainnet-v6", "stakeflow-token-mainnet"]
+depends_on = ["stakeflow-staking-mainnet-v7", "stakeflow-token-mainnet"]
 
-[contracts.stakeflow-unstake-mainnet-v6]
-path = "contracts/stakeflow-unstake-mainnet-v6.clar"
+[contracts.stakeflow-unstake-mainnet-v7]
+path = "contracts/stakeflow-unstake-mainnet-v7.clar"
 clarity_version = 2
 epoch = 2.5
-depends_on = ["stakeflow-staking-mainnet-v6", "stakeflow-rewards-mainnet-v6"]
+depends_on = ["stakeflow-staking-mainnet-v7", "stakeflow-rewards-mainnet-v7"]
 
 [repl.analysis]
 passes = ["check_checker"]

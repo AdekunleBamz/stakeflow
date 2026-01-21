@@ -64,38 +64,28 @@ plan:
     - id: 0
       transactions:
         - emulated-contract-publish:
-            contract-name: sip-009-trait
+            contract-name: stakeflow-nft-mainnet-v6
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/sip-009-trait.clar
+            path: ontracts/stakeflow-nft-mainnet-v6.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: sip-010-trait
+            contract-name: stakeflow-rewards-mainnet-v7
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/sip-010-trait.clar
+            path: ontracts/stakeflow-rewards-mainnet-v7.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: stakeflow-nft
+            contract-name: stakeflow-staking-mainnet-v7
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-nft.clar
+            path: ontracts/stakeflow-staking-mainnet-v7.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: stakeflow-staking
+            contract-name: stakeflow-token-mainnet
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-staking.clar
+            path: ontracts/stakeflow-token-mainnet.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: stakeflow-token
+            contract-name: stakeflow-unstake-mainnet-v7
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-token.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: stakeflow-rewards
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-rewards.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: stakeflow-unstake
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/stakeflow-unstake.clar
+            path: ontracts/stakeflow-unstake-mainnet-v7.clar
             clarity-version: 2
       epoch: "2.5"
