@@ -17,11 +17,11 @@ export function FeatureCard({
 }: FeatureCardProps) {
   return (
     <div
-      className={`bg-gray-900/50 border border-gray-800 rounded-xl p-6 hover:border-purple-500/50 transition-colors ${className}`}
+      className={`bg-gray-900/50 border border-gray-800 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-lg transition-all duration-300 hover:bg-gray-800/50 group ${className}`}
     >
-      <div className="text-purple-400 mb-4">{icon}</div>
-      <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-      <p className="text-gray-400 text-sm">{description}</p>
+      <div className="text-purple-400 mb-4 transform group-hover:scale-110 transition-transform duration-300">{icon}</div>
+      <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-purple-400 transition-colors duration-200">{title}</h3>
+      <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
     </div>
   );
 }
@@ -67,18 +67,22 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section className="py-12">
-      <h2 className="text-3xl font-bold text-center mb-8">
-        Why <span className="gradient-text">StakeFlow</span>?
-      </h2>
+    <section className="py-16 space-y-8">
+      <div className="text-center">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          Why <span className="gradient-text">StakeFlow</span>?
+        </h2>
+        <p className="text-gray-400 text-lg max-w-2xl mx-auto">Experience the future of NFT staking with secure, transparent, and rewarding features.</p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {features.map((feature, index) => (
-          <FeatureCard
-            key={index}
-            icon={feature.icon}
-            title={feature.title}
-            description={feature.description}
-          />
+          <div key={index} style={{ animationDelay: `${index * 100}ms` }} className="animate-fade-in">
+            <FeatureCard
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+            />
+          </div>
         ))}
       </div>
     </section>
