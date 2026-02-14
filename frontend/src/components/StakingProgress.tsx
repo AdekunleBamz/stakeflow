@@ -22,53 +22,33 @@ export function StakingProgress({
 
   return (
     <div
-      className={`bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-6 ${className}`}
+      className={`bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 rounded-xl p-6 transition-all duration-300 hover:border-purple-500/30 ${className}`}
     >
-      <h3 className="text-lg font-semibold text-white mb-4">
+      <h3 className="text-lg font-semibold text-white mb-6 uppercase tracking-wider">
         Your Staking Progress
       </h3>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="text-center">
-          <div className="text-2xl font-bold text-purple-400">
-            {formatNumber(totalNFTs)}
-          </div>
-          <div className="text-xs text-gray-500">Total NFTs</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold text-green-400">
-            {formatNumber(stakedNFTs)}
-          </div>
-          <div className="text-xs text-gray-500">Staked</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold text-yellow-400">
-            {formatSTF(totalRewardsEarned)}
-          </div>
-          <div className="text-xs text-gray-500">Total Earned</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold text-blue-400">
-            {currentStreak}
-          </div>
-          <div className="text-xs text-gray-500">Day Streak</div>
-        </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <StatBox label="Total NFTs" value={formatNumber(totalNFTs)} color="text-purple-400" />
+        <StatBox label="Staked" value={formatNumber(stakedNFTs)} color="text-green-400" />
+        <StatBox label="Total Earned" value={formatSTF(totalRewardsEarned)} color="text-yellow-400" />
+        <StatBox label="Day Streak" value={currentStreak.toString()} color="text-blue-400" />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex justify-between text-sm">
-          <span className="text-gray-400">Staking Rate</span>
-          <span className="text-white">{stakingPercentage.toFixed(1)}%</span>
+          <span className="text-gray-400 font-medium">Staking Rate</span>
+          <span className="text-white font-bold">{stakingPercentage.toFixed(1)}%</span>
         </div>
-        <div className="w-full h-3 bg-gray-700 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
           <div
-            className="h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-purple-600 to-indigo-400 rounded-full transition-all duration-500 shadow-lg"
             style={{ width: `${stakingPercentage}%` }}
           />
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-2">
+      <div className="mt-6 grid grid-cols-3 gap-2">
         <MilestoneIndicator
           label="Bronze"
           threshold={25}
@@ -87,6 +67,18 @@ export function StakingProgress({
       </div>
     </div>
   );
+}
+
+function StatBox({ label, value, color }: { label: string; value: string; color: string }) {
+  return (
+    <div className="text-center p-3 rounded-lg bg-gray-700/20 hover:bg-gray-700/40 transition-colors duration-200">
+      <div className={`text-2xl font-bold ${color}`}>
+        {value}
+      </div>
+      <div className="text-xs text-gray-500 font-medium mt-1">{label}</div>
+    </div>
+  );
+}
 }
 
 interface MilestoneIndicatorProps {
@@ -141,17 +133,17 @@ export function StakingStreak({
   const streakDays = Array.from({ length: 7 }, (_, i) => i < streak % 7);
 
   return (
-    <div className={`bg-gray-800/50 rounded-xl p-4 ${className}`}>
-      <div className="flex items-center justify-between mb-3">
-        <h4 className="text-sm font-medium text-white">Staking Streak</h4>
-        <div className="text-xs text-gray-500">Best: {bestStreak} days</div>
+    <div className={`bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 transition-all duration-300 hover:border-orange-500/30 ${className}`}>
+      <div className="flex items-center justify-between mb-4">
+        <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Staking Streak</h4>
+        <div className="text-xs text-gray-500 font-medium">Best: <span className="text-orange-400 font-bold">{bestStreak}</span> days</div>
       </div>
 
-      <div className="flex items-center gap-3 mb-3">
-        <div className="text-3xl">🔥</div>
+      <div className="flex items-center gap-4 mb-6">
+        <div className="text-4xl animate-pulse">{streak > 0 ? "🔥" : "❄️"}</div>
         <div>
-          <div className="text-2xl font-bold text-orange-400">{streak}</div>
-          <div className="text-xs text-gray-500">days</div>
+          <div className="text-3xl font-bold text-orange-400">{streak}</div>
+          <div className="text-xs text-gray-500 font-medium">days</div>
         </div>
       </div>
 
@@ -159,9 +151,9 @@ export function StakingStreak({
         {streakDays.map((active, index) => (
           <div
             key={index}
-            className={`flex-1 h-2 rounded-full ${
+            className={`flex-1 h-3 rounded-full transition-all duration-300 ${
               active
-                ? "bg-gradient-to-r from-orange-500 to-yellow-500"
+                ? "bg-gradient-to-r from-orange-500 to-yellow-500 animate-glow"
                 : "bg-gray-700"
             }`}
           />
