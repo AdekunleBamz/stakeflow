@@ -66,7 +66,10 @@ export function CountdownTimer({
 
   if (blocksRemaining <= 0) {
     return (
-      <div className={`text-green-400 font-semibold ${className}`}>
+      <div className={`text-green-400 font-semibold flex items-center gap-1 ${className}`}>
+        <svg className="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+        </svg>
         Ready!
       </div>
     );
@@ -76,22 +79,22 @@ export function CountdownTimer({
 
   return (
     <div className={className}>
-      <div className="flex items-center gap-1 text-sm font-mono">
+      <div className="flex items-center gap-1 text-sm font-mono text-white bg-gray-800/30 rounded-lg p-3 border border-gray-700/50 transition-colors duration-300">
         {timeRemaining.days > 0 && (
           <>
-            <span className="text-white">{timeRemaining.days}</span>
+            <span className="font-bold text-indigo-400">{timeRemaining.days}</span>
             <span className="text-gray-500">d</span>
           </>
         )}
-        <span className="text-white">{formatNumber(timeRemaining.hours)}</span>
+        <span className="font-bold text-purple-400">{formatNumber(timeRemaining.hours)}</span>
         <span className="text-gray-500">:</span>
-        <span className="text-white">{formatNumber(timeRemaining.minutes)}</span>
+        <span className="font-bold text-purple-400">{formatNumber(timeRemaining.minutes)}</span>
         <span className="text-gray-500">:</span>
-        <span className="text-white">{formatNumber(timeRemaining.seconds)}</span>
+        <span className="font-bold text-purple-400 animate-pulse">{formatNumber(timeRemaining.seconds)}</span>
       </div>
       {showBlocks && (
-        <div className="text-xs text-gray-500 mt-1">
-          {blocksRemaining.toLocaleString()} blocks
+        <div className="text-xs text-gray-500 mt-2 ml-1 font-medium">
+          {blocksRemaining.toLocaleString()} blocks remaining
         </div>
       )}
     </div>
@@ -112,13 +115,13 @@ export function CountdownDisplay({
   onComplete,
 }: CountdownDisplayProps) {
   return (
-    <div className="bg-gray-800/50 rounded-lg p-4">
-      <div className="text-sm text-gray-400 mb-2">{label}</div>
+    <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 transition-all duration-300 hover:border-gray-600">
+      <div className="text-sm text-gray-400 mb-3 font-medium uppercase tracking-wider">{label}</div>
       <CountdownTimer
         targetBlock={targetBlock}
         currentBlock={currentBlock}
         onComplete={onComplete}
-        className="text-lg"
+        className="text-lg font-semibold"
       />
     </div>
   );
