@@ -52,8 +52,6 @@ interface AnimatedSTFCounterProps {
   value: number;
   duration?: number;
   className?: string;
-}
-
 export function AnimatedSTFCounter({
   value,
   duration = 1000,
@@ -64,7 +62,7 @@ export function AnimatedSTFCounter({
       value={value}
       duration={duration}
       formatter={formatSTF}
-      className={className}
+      className={`font-semibold text-white ${className}`}
     />
   );
 }
@@ -136,7 +134,7 @@ export function CountUp({
   };
 
   return (
-    <span className={className}>
+    <span className={`font-semibold transition-opacity duration-300 ${className}`}>
       {prefix}
       {formatValue(count)}
       {suffix}
@@ -166,8 +164,8 @@ export function Ticker({ value, className = "" }: TickerProps) {
 
   return (
     <span
-      className={`inline-block transition-all duration-150 ${
-        isAnimating ? "transform -translate-y-full opacity-0" : ""
+      className={`inline-block transition-all duration-150 font-semibold ${
+        isAnimating ? "transform -translate-y-full opacity-0" : "translate-y-0 opacity-100"
       } ${className}`}
     >
       {displayValue}
