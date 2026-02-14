@@ -28,15 +28,33 @@ StakeFlow is a premier NFT staking platform built on the Stacks blockchain. Mint
 
 The `@stacks/connect` package provides wallet connection and transaction signing capabilities. It enables seamless integration with Stacks wallets like Leather and Xverse.
 
+**Installation:**
+```bash
+npm install @stacks/connect @stacks/transactions @stacks/network
+```
+
 **Key Features:**
 - Wallet connection management
-- Transaction signing
-- Authentication and user sessions
+- Transaction signing and authentication
+- User session management
 - Network switching (mainnet/testnet)
+- Multi-wallet support
+
+**Implementation in StakeFlow:**
+- Located in: `frontend/src/contexts/WalletContext.tsx`
+- Handles user authentication and account management
+- Manages wallet connections for Leather and Xverse
 
 **Usage Example:**
 ```typescript
-import { showConnect } from '@stacks/connect';
+import { 
+  showConnect,
+  AppConfig,
+  UserSession,
+} from '@stacks/connect';
+
+const appConfig = new AppConfig(['store_write', 'publish_data']);
+const userSession = new UserSession({ appConfig });
 
 showConnect({
   appDetails: {
@@ -56,18 +74,27 @@ showConnect({
 The `@stacks/transactions` package provides utilities for building, signing, and submitting Clarity contract transactions to the Stacks blockchain.
 
 **Key Features:**
-- Contract transaction building
-- Transaction signing with private keys or wallets
-- Fee estimation
-- Transaction broadcasting
-- Nonce management
+- Contract call transaction building
+- Function argument encoding (principals, integers, etc.)
+- Transaction fee estimation
+- Transaction broadcasting to Stacks network
+- Nonce and account sequence management
+- Private key and wallet-based signing
 
-**Usage Example:**
+**Implementation in StakeFlow:**
+- Used in: Mint, Stake, Unstake, and Reward operations
+- Handles all contract interactions with Clarity smart contracts
+- Manages transaction fees and network operations
+
+**Usage Examples:**
+
+**Mint NFT Transaction:**
 ```typescript
 import { 
   ContractCallPayload,
   openContractCall,
 } from '@stacks/connect';
+import { principalCV } from '@stacks/transactions';
 
 const mintTx: ContractCallPayload = {
   network: new StacksMainnet(),
@@ -78,9 +105,48 @@ const mintTx: ContractCallPayload = {
   onFinish: (data) => {
     console.log('Mint transaction submitted:', data.txId);
   },
+  onCancel: () => {
+    console.log('User cancelled transaction');
+  },
 };
 
 await openContractCall(mintTx);
+```
+
+**Stake NFT Transaction:**
+```typescript
+import { uintCV, listCV } from '@stacks/transactions';
+
+const stakeTx: ContractCallPayload = {
+  network: new StacksMainnet(),
+  contractAddress: STAKEFLOW_STAKING_CONTRACT_ADDRESS,
+  contractName: 'stakeflow-staking',
+  functionName: 'stake',
+  functionArgs: [
+    listCV([uintCV(nftId1), uintCV(nftId2)]), // NFT IDs to stake
+  ],
+  onFinish: (data) => {
+    console.log('Stake transaction submitted:', data.txId);
+  },
+};
+
+await openContractCall(stakeTx);
+```
+
+**Claim Rewards Transaction:**
+```typescript
+const claimTx: ContractCallPayload = {
+  network: new StacksMainnet(),
+  contractAddress: STAKEFLOW_REWARDS_CONTRACT_ADDRESS,
+  contractName: 'stakeflow-rewards',
+  functionName: 'claim-rewards',
+  functionArgs: [principalCV(userAddress)],
+  onFinish: (data) => {
+    console.log('Claim rewards transaction submitted:', data.txId);
+  },
+};
+
+await openContractCall(claimTx);
 ```
 
 ## Project Structure
