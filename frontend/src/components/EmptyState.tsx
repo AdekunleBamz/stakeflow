@@ -22,12 +22,18 @@ export function EmptyState({
   className = "",
 }: EmptyStateProps) {
   return (
-    <Card className={`text-center py-12 ${className}`}>
-      {icon && <div className="mb-4 text-gray-500">{icon}</div>}
-      <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
-      <p className="text-gray-400 max-w-sm mx-auto mb-6">{description}</p>
+    <Card className={`text-center py-12 ${className} animate-fade-in border-dashed`}>
+      {icon && (
+        <div className="mb-6 text-gray-500 flex justify-center">
+          <div className="p-4 rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+            {icon}
+          </div>
+        </div>
+      )}
+      <h3 className="text-xl font-semibold text-white mb-3">{title}</h3>
+      <p className="text-gray-400 max-w-sm mx-auto mb-6 leading-relaxed">{description}</p>
       {action && (
-        <Button onClick={action.onClick}>{action.label}</Button>
+        <Button onClick={action.onClick} className="hover:shadow-lg active:scale-95">{action.label}</Button>
       )}
     </Card>
   );
@@ -37,7 +43,7 @@ export function NoNFTsState({ onMint }: { onMint?: () => void }) {
   return (
     <EmptyState
       icon={
-        <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -57,7 +63,7 @@ export function NoStakedNFTsState() {
   return (
     <EmptyState
       icon={
-        <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -76,7 +82,7 @@ export function WalletNotConnectedState({ onConnect }: { onConnect: () => void }
   return (
     <EmptyState
       icon={
-        <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
