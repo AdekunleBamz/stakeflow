@@ -27,27 +27,29 @@ export function RewardCalculator({
   };
 
   return (
-    <div className={`bg-gray-800/50 rounded-xl p-4 ${className}`}>
-      <h3 className="text-sm font-medium text-gray-400 mb-4">Estimated Rewards</h3>
+    <div className={`bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-6 border border-gray-700/50 transition-all duration-300 hover:border-green-500/30 ${className}`}>
+      <h3 className="text-sm font-semibold text-gray-300 mb-6 uppercase tracking-wider">Estimated Rewards</h3>
       
-      <div className="space-y-3">
-        <div className="flex justify-between">
-          <span className="text-gray-400">Daily</span>
-          <span className="font-medium text-green-400">~{formatReward(dailyRewards)} STF</span>
+      <div className="space-y-4">
+        <div className="flex justify-between items-center p-3 rounded-lg bg-gray-700/20 hover:bg-gray-700/40 transition-colors duration-200">
+          <span className="text-gray-400 font-medium">Daily</span>
+          <span className="font-bold text-green-400 text-lg">~{formatReward(dailyRewards)} STF</span>
         </div>
-        <div className="flex justify-between">
-          <span className="text-gray-400">Weekly</span>
-          <span className="font-medium text-green-400">~{formatReward(weeklyRewards)} STF</span>
+        <div className="flex justify-between items-center p-3 rounded-lg bg-gray-700/20 hover:bg-gray-700/40 transition-colors duration-200">
+          <span className="text-gray-400 font-medium">Weekly</span>
+          <span className="font-bold text-green-400 text-lg">~{formatReward(weeklyRewards)} STF</span>
         </div>
-        <div className="flex justify-between">
-          <span className="text-gray-400">Monthly</span>
-          <span className="font-medium text-green-400">~{formatReward(monthlyRewards)} STF</span>
+        <div className="flex justify-between items-center p-3 rounded-lg bg-gray-700/20 hover:bg-gray-700/40 transition-colors duration-200">
+          <span className="text-gray-400 font-medium">Monthly</span>
+          <span className="font-bold text-green-400 text-lg">~{formatReward(monthlyRewards)} STF</span>
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 mt-4">
-        Based on {stakedCount} staked NFT{stakedCount !== 1 ? "s" : ""}
-      </p>
+      <div className="border-t border-gray-700/50 mt-4 pt-4">
+        <p className="text-xs text-gray-500 font-medium">
+          Based on <span className="text-green-400 font-semibold">{stakedCount}</span> staked NFT{stakedCount !== 1 ? "s" : ""}
+        </p>
+      </div>
     </div>
   );
 }
