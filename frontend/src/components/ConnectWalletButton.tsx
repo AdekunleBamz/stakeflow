@@ -33,15 +33,20 @@ export function ConnectWalletButton({
 
   if (isConnected && stxAddress) {
     return (
-      <div className={`flex items-center gap-2 ${className}`}>
+      <div className={`flex items-center gap-2 ${className} animate-fade-in`}>
         {showAddress && (
-          <div className="px-3 py-1.5 bg-gray-800 rounded-lg border border-gray-700">
+          <div className="px-3 py-1.5 bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-colors duration-200 hover:bg-gray-700/50" title={stxAddress}>
             <span className="text-sm font-mono text-gray-300">
               {formatAddress(stxAddress, 4)}
             </span>
           </div>
         )}
-        <Button variant="outline" size={size} onClick={disconnect}>
+        <Button 
+          variant="outline" 
+          size={size} 
+          onClick={disconnect}
+          aria-label="Disconnect wallet"
+        >
           Disconnect
         </Button>
       </div>
@@ -49,7 +54,13 @@ export function ConnectWalletButton({
   }
 
   return (
-    <Button variant={variant} size={size} onClick={connect} className={className}>
+    <Button 
+      variant={variant} 
+      size={size} 
+      onClick={connect} 
+      className={`${className} hover:shadow-2xl active:scale-95`}
+      aria-label="Connect crypto wallet"
+    >
       Connect Wallet
     </Button>
   );
@@ -69,13 +80,14 @@ export function WalletRequired({ children, fallback }: WalletRequiredProps) {
     }
 
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <div className="w-16 h-16 mb-4 rounded-full bg-purple-500/20 flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center py-12 text-center animate-fade-in">
+        <div className="w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-purple-500/30 to-indigo-500/30 flex items-center justify-center border border-purple-500/30 transition-transform duration-300 hover:scale-110">
           <svg
             className="w-8 h-8 text-purple-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -88,10 +100,10 @@ export function WalletRequired({ children, fallback }: WalletRequiredProps) {
         <h3 className="text-lg font-semibold text-white mb-2">
           Wallet Required
         </h3>
-        <p className="text-gray-400 mb-4 max-w-sm">
+        <p className="text-gray-400 mb-4 max-w-sm leading-relaxed">
           Connect your Stacks wallet to access this feature
         </p>
-        <Button onClick={connect}>Connect Wallet</Button>
+        <Button onClick={connect} className="hover:shadow-2xl">Connect Wallet</Button>
       </div>
     );
   }
@@ -113,13 +125,13 @@ export function WalletGate({
   if (!isConnected) {
     return (
       <div className="relative">
-        <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg">
+        <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg animate-fade-in">
           <div className="text-center p-6">
-            <p className="text-gray-300 mb-3">{message}</p>
+            <p className="text-gray-300 mb-3 leading-relaxed">{message}</p>
             <ConnectWalletButton />
           </div>
         </div>
-        <div className="opacity-30 pointer-events-none">{children}</div>
+        <div className="opacity-30 pointer-events-none transition-opacity duration-300">{children}</div>
       </div>
     );
   }
