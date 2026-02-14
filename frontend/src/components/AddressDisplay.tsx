@@ -28,9 +28,9 @@ export function AddressDisplay({
   const explorerUrl = `https://explorer.stacks.co/address/${address}?chain=mainnet`;
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800/30 border border-gray-700/50 transition-all duration-200 hover:border-gray-600 ${className}`}>
       <span
-        className="font-mono text-sm text-gray-300"
+        className="font-mono text-sm text-gray-300 hover:text-white transition-colors duration-200"
         title={address}
       >
         {displayAddress}
@@ -41,8 +41,9 @@ export function AddressDisplay({
           href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-400 hover:text-purple-400 transition-colors"
+          className="text-gray-400 hover:text-purple-400 transition-colors duration-200 hover:scale-110 transform"
           title="View on Explorer"
+          aria-label="View address on Stacks Explorer"
         >
           <svg
             className="w-4 h-4"
