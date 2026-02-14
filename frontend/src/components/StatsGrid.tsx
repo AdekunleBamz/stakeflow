@@ -30,19 +30,24 @@ export function StatsGrid({ stats, columns = 4, className = "" }: StatsGridProps
   return (
     <div className={`grid ${columnClasses[columns]} gap-4 ${className}`}>
       {stats.map((stat, index) => (
-        <Card key={index} className="text-center">
-          <p className="text-gray-400 text-sm mb-1">{stat.label}</p>
-          <p className="text-2xl font-bold gradient-text">
+        <Card 
+          key={index} 
+          className="text-center hover:shadow-lg hover:border-indigo-500/50 transition-all duration-300 cursor-default animate-fade-in"
+          style={{ animationDelay: `${index * 50}ms` }}
+        >
+          <p className="text-gray-400 text-sm mb-2 font-medium uppercase tracking-wider">{stat.label}</p>
+          <p className="text-3xl font-bold gradient-text">
             {stat.prefix}
             {typeof stat.value === "number" ? stat.value.toLocaleString() : stat.value}
             {stat.suffix}
           </p>
           {stat.change && (
             <p
-              className={`text-sm mt-1 ${
+              className={`text-sm mt-2 font-semibold flex items-center justify-center gap-1 ${
                 stat.change.isPositive ? "text-green-400" : "text-red-400"
               }`}
             >
+              <span>{stat.change.isPositive ? "↑" : "↓"}</span>
               {stat.change.isPositive ? "+" : ""}
               {stat.change.value}%
             </p>
@@ -62,15 +67,15 @@ interface SingleStatProps {
 
 export function SingleStat({ label, value, icon, className = "" }: SingleStatProps) {
   return (
-    <div className={`bg-gray-800/50 rounded-lg p-4 ${className}`}>
+    <div className={`bg-gray-800/50 border border-gray-700/50 rounded-lg p-4 transition-all duration-300 hover:bg-gray-700/50 hover:border-gray-600 ${className}`}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-gray-400 text-sm">{label}</p>
+          <p className="text-gray-400 text-sm font-medium">{label}</p>
           <p className="text-xl font-bold text-white mt-1">
             {typeof value === "number" ? value.toLocaleString() : value}
           </p>
         </div>
-        {icon && <div className="text-purple-400">{icon}</div>}
+        {icon && <div className="text-purple-400 opacity-70 hover:opacity-100 transition-opacity duration-200">{icon}</div>}
       </div>
     </div>
   );
