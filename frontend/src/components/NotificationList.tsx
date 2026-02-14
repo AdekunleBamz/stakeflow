@@ -67,15 +67,18 @@ export function NotificationItem({
 
   return (
     <div
-      className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
-        read ? "bg-gray-800/30" : style.bg
-      } hover:bg-gray-800`}
+      className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 border border-transparent ${
+        read ? "bg-gray-800/30" : style.bg + " border-opacity-50 border-current"
+      } hover:bg-gray-800 hover:border-gray-600 animate-slide-in-right`}
       onClick={() => {
         if (onRead && !read) onRead();
         if (onClick) onClick();
       }}
+      role="button"
+      tabIndex={0}
+      aria-pressed={read}
     >
-      <div className={`flex-shrink-0 ${style.icon}`}>{icons[type]}</div>
+      <div className={`flex-shrink-0 ${style.icon} transition-transform duration-200 hover:scale-110`}>{icons[type]}</div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
           <h4
@@ -86,7 +89,7 @@ export function NotificationItem({
             {title}
           </h4>
           {!read && (
-            <div className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0" />
+            <div className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0 animate-pulse-subtle" />
           )}
         </div>
         <p className="text-xs text-gray-500 mt-0.5 truncate">{message}</p>
@@ -123,12 +126,12 @@ export function NotificationList({
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <div className={`bg-gray-900 border border-gray-700 rounded-xl ${className}`}>
-      <div className="flex items-center justify-between p-4 border-b border-gray-700">
+    <div className={`bg-gray-900 border border-gray-700 rounded-xl overflow-hidden transition-all duration-300 ${className}`}>
+      <div className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800/30">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-medium text-white">Notifications</h3>
+          <h3 className="text-sm font-medium text-white font-semibold">Notifications</h3>
           {unreadCount > 0 && (
-            <span className="px-1.5 py-0.5 text-xs bg-purple-500 text-white rounded-full">
+            <span className="px-2 py-1 text-xs bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full font-semibold">
               {unreadCount}
             </span>
           )}
@@ -137,7 +140,8 @@ export function NotificationList({
           {unreadCount > 0 && (
             <button
               onClick={onMarkAllRead}
-              className="text-xs text-purple-400 hover:text-purple-300"
+              className="text-xs text-purple-400 hover:text-purple-300 transition-colors duration-200 font-medium"
+              aria-label="Mark all notifications as read"
             >
               Mark all read
             </button>
@@ -145,7 +149,8 @@ export function NotificationList({
           {notifications.length > 0 && (
             <button
               onClick={onClear}
-              className="text-xs text-gray-400 hover:text-white"
+              className="text-xs text-gray-400 hover:text-white transition-colors duration-200 font-medium"
+              aria-label="Clear all notifications"
             >
               Clear
             </button>
@@ -155,21 +160,22 @@ export function NotificationList({
 
       <div className="max-h-80 overflow-y-auto">
         {notifications.length === 0 ? (
-          <div className="p-8 text-center text-gray-500 text-sm">
-            No notifications
+          <div className="p-8 text-center text-gray-500 text-sm animate-fade-in">
+            No notifications yet
           </div>
         ) : (
           <div className="p-2 space-y-1">
-            {notifications.map((notification) => (
-              <NotificationItem
-                key={notification.id}
-                type={notification.type}
-                title={notification.title}
-                message={notification.message}
-                time={notification.time}
-                read={notification.read}
-                onRead={() => onMarkRead(notification.id)}
-              />
+            {notifications.map((notification, index) => (
+              <div key={notification.id} style={{ animationDelay: `${index * 30}ms` }}>
+                <NotificationItem
+                  type={notification.type}
+                  title={notification.title}
+                  message={notification.message}
+                  time={notification.time}
+                  read={notification.read}
+                  onRead={() => onMarkRead(notification.id)}
+                />
+              </div>
             ))}
           </div>
         )}
