@@ -29,23 +29,32 @@ export function NFTGrid({
 
   if (nfts.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500">{emptyMessage}</p>
+      <div className="text-center py-12 px-4 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-lg border border-gray-700/30 animate-fade-in">
+        <div className="inline-block mb-3">
+          <div className="text-4xl mb-2">📭</div>
+        </div>
+        <p className="text-gray-500 font-medium">{emptyMessage}</p>
+        <p className="text-gray-600 text-sm mt-2">Start by minting your first NFT</p>
       </div>
     );
   }
 
   return (
-    <div className={`grid ${columnClasses[columns]} gap-3`}>
-      {nfts.map((nft) => (
-        <NFTCard
+    <div className={`grid ${columnClasses[columns]} gap-4 animate-fade-in`}>
+      {nfts.map((nft, idx) => (
+        <div
           key={nft.id}
-          id={nft.id}
-          isStaked={nft.isStaked}
-          isSelected={selectedIds.includes(nft.id)}
-          onClick={() => onToggleSelect(nft.id)}
-          pendingRewards={showRewards ? nft.pendingRewards : undefined}
-        />
+          style={{ animationDelay: `${idx * 25}ms` }}
+          className="animate-fade-in"
+        >
+          <NFTCard
+            id={nft.id}
+            isStaked={nft.isStaked}
+            isSelected={selectedIds.includes(nft.id)}
+            onClick={() => onToggleSelect(nft.id)}
+            pendingRewards={showRewards ? nft.pendingRewards : undefined}
+          />
+        </div>
       ))}
     </div>
   );
