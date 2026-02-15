@@ -67,17 +67,18 @@ export function StakingDashboardEnhanced() {
 
   if (loading) {
     return (
-      <Card className="flex items-center justify-center py-12">
+      <Card className="flex flex-col items-center justify-center py-16 animate-fade-in">
         <Spinner size="lg" />
-        <p className="text-gray-400 mt-4">Loading your NFTs...</p>
+        <p className="text-gray-400 mt-4 font-medium animate-pulse">Loading your NFTs...</p>
       </Card>
     );
   }
 
   return (
-    <Card padding="none">
-      <div className="p-6 border-b border-gray-800">
-        <h2 className="text-2xl font-semibold">Staking Dashboard</h2>
+    <Card padding="none" className="animate-fade-in overflow-hidden border border-gray-700/30">
+      <div className="p-6 border-b border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-transparent">
+        <h2 className="text-3xl font-bold gradient-text mb-1">🎨 Staking Dashboard</h2>
+        <p className="text-gray-500 text-sm">Manage your staking positions</p>
       </div>
 
       <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
@@ -88,28 +89,33 @@ export function StakingDashboardEnhanced() {
             <NoNFTsState />
           ) : (
             <>
-              <div className="flex justify-between items-center mb-4">
-                <p className="text-gray-400">
-                  {selectedToStake.length > 0
-                    ? `${selectedToStake.length} selected`
-                    : "Select NFTs to stake"}
-                </p>
+              <div className="flex justify-between items-center mb-6 p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                <div>
+                  <p className="text-sm text-gray-400 font-medium">
+                    {selectedToStake.length > 0
+                      ? `💪 ${selectedToStake.length} selected for staking`
+                      : "👉 Select NFTs to stake"}
+                  </p>
+                  <p className="text-xs text-gray-600 mt-1">Total available: {nfts.length} NFTs</p>
+                </div>
                 <div className="flex gap-2">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={selectAllAvailable}
                     disabled={nfts.length === 0}
+                    className="font-semibold transition-all hover:shadow-lg"
                   >
-                    Select All
+                    ✓ Select All
                   </Button>
                   {selectedToStake.length > 0 && (
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setSelectedToStake([])}
+                      className="font-semibold transition-all hover:shadow-lg"
                     >
-                      Clear
+                      ✕ Clear
                     </Button>
                   )}
                 </div>
@@ -125,9 +131,9 @@ export function StakingDashboardEnhanced() {
                 onClick={handleStake}
                 disabled={selectedToStake.length === 0 || status === "pending"}
                 loading={status === "pending"}
-                className="w-full mt-6"
+                className="w-full mt-6 font-semibold text-base transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20"
               >
-                Stake {selectedToStake.length > 0 ? `(${selectedToStake.length})` : "Selected"}
+                🚀 Stake {selectedToStake.length > 0 ? `(${selectedToStake.length})` : "Selected"}
               </Button>
             </>
           )}
@@ -138,28 +144,33 @@ export function StakingDashboardEnhanced() {
             <NoStakedNFTsState />
           ) : (
             <>
-              <div className="flex justify-between items-center mb-4">
-                <p className="text-gray-400">
-                  {selectedToUnstake.length > 0
-                    ? `${selectedToUnstake.length} selected`
-                    : "Select NFTs to unstake"}
-                </p>
+              <div className="flex justify-between items-center mb-6 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
+                <div>
+                  <p className="text-sm text-gray-400 font-medium">
+                    {selectedToUnstake.length > 0
+                      ? `💻 ${selectedToUnstake.length} selected for unstaking`
+                      : "👉 Select NFTs to unstake"}
+                  </p>
+                  <p className="text-xs text-gray-600 mt-1">Currently staking: {stakedNfts.length} NFTs</p>
+                </div>
                 <div className="flex gap-2">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={selectAllStaked}
                     disabled={stakedNfts.length === 0}
+                    className="font-semibold transition-all hover:shadow-lg"
                   >
-                    Select All
+                    ✓ Select All
                   </Button>
                   {selectedToUnstake.length > 0 && (
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setSelectedToUnstake([])}
+                      className="font-semibold transition-all hover:shadow-lg"
                     >
-                      Clear
+                      ✕ Clear
                     </Button>
                   )}
                 </div>
@@ -177,13 +188,13 @@ export function StakingDashboardEnhanced() {
                 disabled={selectedToUnstake.length === 0 || status === "pending"}
                 loading={status === "pending"}
                 variant="secondary"
-                className="w-full mt-6"
+                className="w-full mt-6 font-semibold text-base transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20"
               >
-                Unstake {selectedToUnstake.length > 0 ? `(${selectedToUnstake.length})` : "Selected"}
+                ↩️ Unstake {selectedToUnstake.length > 0 ? `(${selectedToUnstake.length})` : "Selected"}
               </Button>
 
-              <p className="text-xs text-gray-500 text-center mt-2">
-                Unstaking fee: 0.001 STX per NFT
+              <p className="text-xs text-gray-500 text-center mt-3 px-4 py-2 bg-gray-800/50 rounded-lg border border-gray-700/30">
+                💰 Unstaking fee: <span className="text-yellow-400 font-semibold">0.001 STX</span> per NFT
               </p>
             </>
           )}
