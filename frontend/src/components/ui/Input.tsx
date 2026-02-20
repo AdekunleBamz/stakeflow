@@ -1,94 +1,264 @@
 "use client";
 
-import React from "react";
+import { forwardRef, InputHTMLAttributes, ReactNode, useState } from "react";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
   error?: string;
-  helperText?: string;
+  hint?: string;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  leftAddon?: string;
+  rightAddon?: string;
+  size?: "sm" | "md" | "lg";
+  variant?: "default" | "filled" | "flushed";
+  isRequired?: boolean;
+  showCharCount?: boolean;
+  maxLength?: number;
 }
 
-export function Input({
-  label,
-  error,
-  helperText,
-  className = "",
-  ...props
-}: InputProps) {
-  return (
-    <div className="w-full">
-      {label && (
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          {label}
-        </label>
-      )}
-      <input
-        className={`w-full bg-gray-800 border ${
-          error ? "border-red-500" : "border-gray-700"
-        } rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors ${className}`}
-        {...props}
-      />
-      {error && <p className="mt-1 text-sm text-red-400">{error}</p>}
-      {helperText && !error && (
-        <p className="mt-1 text-sm text-gray-500">{helperText}</p>
-      )}
-    </div>
-  );
-}
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      label,
+      error,
+      hint,
+      leftIcon,
+      rightIcon,
+      leftAddon,
+      rightAddon,
+      size = "md",
+      variant = "default",
+      className = "",
+      isRequired = false,
+      showCharCount = false,
+      maxLength,
+      disabled,
+      id,
+      value,
+      ...props
+    },
+    ref
+  ) => {
+    const [charCount, setCharCount] = useState(String(value || "").length);
+    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
 
-interface NumberInputProps {
-  value: number;
-  onChange: (value: number) => void;
-  min?: number;
-  max?: number;
-  label?: string;
-  className?: string;
-}
+    const sizeStyles = {
+      sm: "py-2 px-3 text-sm",
+      md: "py-3 px-4 text-base",
+      lg: "py-4 px-5 text-lg",
+    };
 
-export function NumberInput({
-  value,
-  onChange,
-  min = 1,
-  max = 100,
-  label,
-  className = "",
-}: NumberInputProps) {
-  const decrease = () => {
-    if (value > min) {
-      onChange(value - 1);
-    }
-  };
+    const variantStyles = {
+      default:
+        "bg-gray-800/50 border border-gray-700 rounded-lg focus:border-purple-500 focus:ring-1 focus:ring-purple-500",
+      filled:
+        "bg-gray-800 border-2 border-transparent rounded-lg focus:border-purple-500 focus:bg-gray-800/80",
+      flushed:
+        "bg-transparent border-b-2 border-gray-700 rounded-none focus:border-purple-500 px-0",
+    };
 
-  const increase = () => {
-    if (value < max) {
-      onChange(value + 1);
-    }
-  };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCharCount(e.target.value.length);
+      props.onChange?.(e);
+    };
 
-  return (
-    <div className={className}>
-      {label && (
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          {label}
-        </label>
-      )}
-      <div className="flex items-center gap-3">
-        <button
-          onClick={decrease}
-          disabled={value <= min}
-          className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 text-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          -
-        </button>
-        <span className="text-2xl font-bold w-16 text-center">{value}</span>
-        <button
-          onClick={increase}
-          disabled={value >= max}
-          className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 text-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          +
-        </button>
+    return (
+      <div className={`w-full ${className}`}>
+        {label && (
+          <label
+            htmlFor={inputId}
+            className="block text-sm font-medium text-gray-300 mb-2"
+          >
+            {label}
+            {isRequired && <span className="text-red-400 ml-1">*</span>}
+          </label>
+        )}
+        <div className="relative flex">
+          {leftAddon && (
+            <span className="inline-flex items-center px-4 text-sm text-gray-400 bg-gray-800 border border-r-0 border-gray-700 rounded-l-lg">
+              {leftAddon}
+            </span>
+          )}
+          <div className="relative flex-1">
+            {leftIcon && (
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                {leftIcon}
+              </span>
+            )}
+            <input
+              ref={ref}
+              id={inputId}
+              disabled={disabled}
+              maxLength={maxLength}
+              value={value}
+              {...props}
+              onChange={handleChange}
+              className={`w-full text-white placeholder-gray-500 transition-all duration-200 focus:outline-none ${sizeStyles[size]} ${variantStyles[variant]} ${
+                leftIcon ? "pl-10" : ""
+              } ${rightIcon ? "pr-10" : ""} ${
+                leftAddon ? "rounded-l-none" : ""
+              } ${rightAddon ? "rounded-r-none" : ""} ${
+                error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""
+              } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+            />
+            {rightIcon && (
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                {rightIcon}
+              </span>
+            )}
+          </div>
+          {rightAddon && (
+            <span className="inline-flex items-center px-4 text-sm text-gray-400 bg-gray-800 border border-l-0 border-gray-700 rounded-r-lg">
+              {rightAddon}
+            </span>
+          )}
+        </div>
+        <div className="flex justify-between mt-1">
+          {(error || hint) && (
+            <p className={`text-sm ${error ? "text-red-400" : "text-gray-500"}`}>
+              {error || hint}
+            </p>
+          )}
+          {showCharCount && maxLength && (
+            <p className={`text-sm ${charCount > maxLength ? "text-red-400" : "text-gray-500"}`}>
+              {charCount}/{maxLength}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    );
+  }
+);
+
+Input.displayName = "Input";
+
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label?: string;
+  error?: string;
+  hint?: string;
+  isRequired?: boolean;
+  showCharCount?: boolean;
+  autoResize?: boolean;
+}
+
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  (
+    {
+      label,
+      error,
+      hint,
+      className = "",
+      isRequired = false,
+      showCharCount = false,
+      maxLength,
+      autoResize = false,
+      disabled,
+      id,
+      value,
+      ...props
+    },
+    ref
+  ) => {
+    const [charCount, setCharCount] = useState(String(value || "").length);
+    const textareaId = id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
+
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setCharCount(e.target.value.length);
+      if (autoResize) {
+        e.target.style.height = "auto";
+        e.target.style.height = `${e.target.scrollHeight}px`;
+      }
+      props.onChange?.(e);
+    };
+
+    return (
+      <div className={`w-full ${className}`}>
+        {label && (
+          <label
+            htmlFor={textareaId}
+            className="block text-sm font-medium text-gray-300 mb-2"
+          >
+            {label}
+            {isRequired && <span className="text-red-400 ml-1">*</span>}
+          </label>
+        )}
+        <textarea
+          ref={ref}
+          id={textareaId}
+          disabled={disabled}
+          maxLength={maxLength}
+          value={value}
+          {...props}
+          onChange={handleChange}
+          className={`w-full py-3 px-4 text-white placeholder-gray-500 bg-gray-800/50 border border-gray-700 rounded-lg transition-all duration-200 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 resize-none ${
+            error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""
+          } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+        />
+        <div className="flex justify-between mt-1">
+          {(error || hint) && (
+            <p className={`text-sm ${error ? "text-red-400" : "text-gray-500"}`}>
+              {error || hint}
+            </p>
+          )}
+          {showCharCount && maxLength && (
+            <p className={`text-sm ${charCount > maxLength ? "text-red-400" : "text-gray-500"}`}>
+              {charCount}/{maxLength}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
+);
+
+Textarea.displayName = "Textarea";
+
+interface SearchInputProps extends Omit<InputProps, "leftIcon"> {
+  onSearch?: (value: string) => void;
+  onClear?: () => void;
+}
+
+export function SearchInput({
+  onSearch,
+  onClear,
+  placeholder = "Search...",
+  ...props
+}: SearchInputProps) {
+  const [value, setValue] = useState("");
+
+  const handleClear = () => {
+    setValue("");
+    onClear?.();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSearch?.(value);
+    }
+  };
+
+  return (
+    <Input
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onKeyDown={handleKeyDown}
+      placeholder={placeholder}
+      leftIcon={
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      }
+      rightIcon={
+        value ? (
+          <button onClick={handleClear} className="hover:text-white transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        ) : null
+      }
+    />
   );
 }
