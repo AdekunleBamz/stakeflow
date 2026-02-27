@@ -108,3 +108,8 @@
 (define-read-only (get-contract-owner)
   CONTRACT-OWNER
 )
+
+;; Calculate circulating supply (total - locked)
+(define-read-only (get-circulating-supply)
+  (ok (ft-get-supply stakeflow-token))
+)
